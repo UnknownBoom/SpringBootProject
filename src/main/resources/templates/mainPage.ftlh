@@ -12,9 +12,14 @@
 
 
 <body class="bg-body">
-<form method="post" id="save_edit">
+<form method="post" id="save_edit" action="save">
+</form>
+<form action="/filter" method="post" >
+        <input type="text" name="filter" placeholder="Input an id"/>
+    <button type="submit" class="btn-primary">Filter</button>
 </form>
 <table class="table table-hover table-dark" contenteditable="true">
+
     <thead >
     <tr>
         <th scope="col">#</th>
@@ -28,7 +33,7 @@
         <td>${user.id}</td>
         <td>${user.username}</td>
         <td>${user.password}</td>
-        <td><button form="save_edit" type="submit" class="btn btn-light">Save</button>
+        <td><button form="save_edit" type="submit" class="btn btn-light cellbut">Save</button>
     </tr>
         </#list>
     </tbody>

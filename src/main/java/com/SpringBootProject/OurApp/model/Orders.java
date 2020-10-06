@@ -1,19 +1,15 @@
 package com.SpringBootProject.OurApp.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @Entity
-@Table(name = "orsers")
+@Table(name = "orders")
 public class Orders implements Serializable {
      @Id
      private Long order_id;
@@ -22,13 +18,14 @@ public class Orders implements Serializable {
 
      private String order_name;
 
-     private String product_type;
+     @OneToOne(mappedBy = "")
+     private Product_types product_type;
 
-//     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,targetEntity = Users.class,mappedBy = "users")
-//     private Users customer;
-//
-//     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,targetEntity = Users.class,mappedBy="users")
-//     private Users manager;
+     @OneToOne(cascade = CascadeType.ALL)
+     private Users customer;
+
+     @OneToOne(cascade = CascadeType.ALL)
+     private Users manager;
 
      private java.math.BigDecimal price;
 
@@ -36,9 +33,4 @@ public class Orders implements Serializable {
 
      @Lob
      private byte[] order_schemes;
-
-//     public Orders(Users customer, Users manager) {
-//          this.customer = customer;
-//          this.manager = manager;
-//     }
 }
