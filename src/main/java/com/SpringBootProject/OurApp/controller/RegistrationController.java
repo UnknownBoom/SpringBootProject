@@ -29,7 +29,6 @@ public class RegistrationController {
     public String saveUser(Users user, Model model){
         Users user_db = usersRepo.findByUsername(user.getUsername());
         if(user_db!=null){
-            System.out.println("Not OK");
             model.addAttribute("message","User already exists");
             return "registration";
         }

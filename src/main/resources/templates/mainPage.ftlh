@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <title> OurApp</title>
 
@@ -12,6 +11,7 @@
 
 
 <body class="bg-body">
+
 <div>
     <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value=${_csrf.token} />
@@ -37,9 +37,9 @@
     <tbody>
     <#list users as user>
     <tr>
-        <td>${user.id}</td>
-        <td>${user.username}</td>
-        <td>${user.password}</td>
+        <td>${user.id?has_content?then(user.id, "null")}</td>
+        <td>${user.username?has_content?then(user.username, "null")}</td>
+        <td>${user.password?has_content?then(user.password, "null")}</td>
         <td><button form="save_edit" type="submit" class="btn btn-light cellbut" contenteditable="false">Save</button>
     </tr>
         </#list>
