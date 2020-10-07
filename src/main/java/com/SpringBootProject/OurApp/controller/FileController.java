@@ -11,5 +11,4 @@ public class FileController {
     public String provideUploadInfo() {
         return "mainPage";
     }
-
 }

@@ -20,8 +20,9 @@
 </div>
 <form method="post" id="save_edit" action="save">
 </form>
-<form action="/filter" method="post" >
+<form action="/tables/filter" method="post" >
         <input type="text" name="filter" placeholder="Input an id"/>
+    <input type="hidden" name="_csrf" value=${_csrf.token} />
     <button type="submit" class="btn-primary">Filter</button>
 </form>
 <table class="table table-hover table-dark" contenteditable="true">
