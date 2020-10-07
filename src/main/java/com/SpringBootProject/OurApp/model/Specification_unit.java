@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-//Not Ended
+
 
 @Entity
 @Data
@@ -18,7 +18,10 @@ public class Specification_unit implements Serializable {
     @JoinColumn
     private Product_types product_type;
 
- //   unit VARCHAR(50) NOT NULL,
+    @Id
+    @OneToOne
+    @JoinColumn
+    private Product_types product_unit;
 
     @Column(nullable = false)
     private Integer amount;
