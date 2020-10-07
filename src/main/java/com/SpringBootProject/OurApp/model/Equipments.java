@@ -13,7 +13,7 @@ public class Equipments {
     @Id
     private String mark;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Equipment_types equipment_type;
 

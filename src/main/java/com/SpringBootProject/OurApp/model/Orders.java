@@ -18,13 +18,16 @@ public class Orders implements Serializable {
 
      private String order_name;
 
-     @OneToOne(mappedBy = "")
+     @ManyToOne
+     @JoinColumn(name = "product_type_id")
      private Product_types product_type;
 
-     @OneToOne(cascade = CascadeType.ALL)
+     @ManyToOne
+     @JoinColumn(name = "customer_id")
      private Users customer;
 
-     @OneToOne(cascade = CascadeType.ALL)
+     @ManyToOne
+     @JoinColumn(name = "manager_id")
      private Users manager;
 
      private java.math.BigDecimal price;

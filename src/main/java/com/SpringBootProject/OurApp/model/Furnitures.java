@@ -25,7 +25,7 @@ public class Furnitures {
     private Integer amount;
 
     @JoinColumn(nullable = true)
-    @OneToOne
+    @ManyToOne
     private Suppliers main_supplier = null;
 
     @OneToMany(mappedBy = "furniture_type")

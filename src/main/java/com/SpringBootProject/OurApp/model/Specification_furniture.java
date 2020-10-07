@@ -14,13 +14,13 @@ import java.io.Serializable;
 public class Specification_furniture implements Serializable {
 
     @Id
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name = "product_type_id")
     private Product_types product_type;
 
     @Id
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name = "furniture_id")
     private Furniture_types furniture;
 
     @Column(nullable = false)

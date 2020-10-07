@@ -24,7 +24,7 @@ public class Materials {
     @Column(nullable = false)
     private Integer amount;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable = true)
     private Suppliers main_supplier =null;
 

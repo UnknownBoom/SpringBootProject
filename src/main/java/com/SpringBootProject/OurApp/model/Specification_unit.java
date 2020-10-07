@@ -14,13 +14,13 @@ import java.io.Serializable;
 @Table(name="specification_unit")
 public class Specification_unit implements Serializable {
     @Id
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name = "product_type_id")
     private Product_types product_type;
 
     @Id
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name = "product_unit_id")
     private Product_types product_unit;
 
     @Column(nullable = false)

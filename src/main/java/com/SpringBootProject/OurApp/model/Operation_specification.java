@@ -17,16 +17,16 @@ public class Operation_specification implements Serializable {
     private Long operation_id;
 
     @Id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Product_types product_type;
 
     @Id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Operations operation;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable = true)
     private  Equipment_types equipment_type;
 
