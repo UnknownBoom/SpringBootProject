@@ -25,14 +25,14 @@ public class Materials {
     private Integer amount;
 
     @ManyToOne
-    @JoinColumn(nullable = true)
+    @JoinColumn(nullable = true,name = "main_supplier_id")
     private Suppliers main_supplier =null;
 
     @Column(nullable = true)
     @Lob
     private byte[] image =null;
 
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false,name = "material_types_id")
     @OneToOne
     private Material_types material_types;
 

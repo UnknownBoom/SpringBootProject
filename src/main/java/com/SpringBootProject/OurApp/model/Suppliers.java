@@ -22,7 +22,7 @@ public class Suppliers {
     private String supplier_name;
 
     @Column(nullable = true)
-    private String address ;
+    private String address =null;
 
     @Column(nullable = false)
     private Integer delivery_period;

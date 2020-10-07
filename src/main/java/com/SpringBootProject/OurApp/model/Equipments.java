@@ -14,7 +14,7 @@ public class Equipments {
     private String mark;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false,name = "equipment_type_id")
     private Equipment_types equipment_type;
 
     @Column(nullable = true)

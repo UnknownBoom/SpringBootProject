@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-public class Users {
+public class Users  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,17 +21,22 @@ public class Users {
     @NaturalId
     private String password;
 
-    private String  surname ;
+    @Column(nullable = true)
+    private String  surname  = null ;
 
-    private String name_patronymic;
+    @Column(nullable = true)
+    private String first_name  = null ;
 
-    @ElementCollection(targetClass = Roles.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(nullable = true)
+    private String patronymic = null;
+
+    @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Roles> role;
+    private Set<Roles> roles;
 
     @Lob
     @Column(nullable = true)
-    private byte[] photo;
+    private byte[] photo  = null ;
 
 }

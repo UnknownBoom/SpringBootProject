@@ -18,17 +18,17 @@ public class Operation_specification implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false,name = "product_type_id")
     private Product_types product_type;
 
     @Id
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false,name = "operation_id")
     private Operations operation;
 
     @ManyToOne
-    @JoinColumn(nullable = true)
-    private  Equipment_types equipment_type;
+    @JoinColumn(nullable = true,name = "equipment_type_id")
+    private  Equipment_types equipment_type =null;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
