@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/registration_login/css/util.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/registration_login/css/main.css}">
     <!--===============================================================================================-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <!--<div class="container-login100"th:fragment="form (islogin)">-->
@@ -83,6 +84,19 @@
     <script th:src="@{/registration_login/vendor/countdowntime/countdowntime.js}"></script>
     <!--===============================================================================================-->
     <script th:src="@{/registration_login/js/main.js}"></script>
+    <script>
+        function show_hide_password(target){
+            var input = document.getElementById('password-input');
+            if (input.getAttribute('type') == 'password') {
+                target.classList.add('view');
+                input.setAttribute('type', 'text');
+            } else {
+                target.classList.remove('view');
+                input.setAttribute('type', 'password');
+            }
+            return false;
+        }
+    </script>
 
 </div>
 </body>

@@ -3,10 +3,13 @@ package com.SpringBootProject.OurApp.model;
 
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Set;
 
@@ -22,10 +25,16 @@ public class Users implements UserDetails {
     private Long id;
 
     @NaturalId
+    @NotBlank(message = "Username cannot be empty")
     private String username;
 
     @NaturalId
+
+    @Column(name = "password")
+    @Pattern(regexp = "(?=^.{6,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",message = "Weak password *(Sorry)")
+    @NotBlank(message = "Password cannot be empty")
     private String password;
+
 
     @Column(nullable = true)
     private String  surname  = null ;
@@ -49,6 +58,7 @@ public class Users implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

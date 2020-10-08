@@ -5,24 +5,44 @@
 
 </head >
 <body>
+
 <div class="container-login100">
 	<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
 		<form class="login100-form validate-form"  th:action="@{/registration}" method="post">
 				<span class="login100-form-title p-b-37">
 					Sign Up
 				</span>
-			<div th:if="${error}">
-				<div class="alert alert-danger" th:text="${error}" ></div>
+			<div th:if="${errors!=null && #maps.containsKey(errors,'usererror')}">
+				<div class="alert alert-danger" th:text="${errors.usererror}"></div>
 			</div>
 
-			<div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
-				<input class="input100" type="text" name="username" placeholder="username or email">
+<!--         	Username-->
+			<div class="wrap-input100 validate-input m-b-20" data-validate="Enter username">
+				<input class="input100 form-control " type="text" name="username" placeholder="username"
+					   th:classappend="${errors!=null && #maps.containsKey(errors, 'usernameError')?'is-invalid':''}"
+						th:value="${user?.username?:''}">
+				<div class="invalid-feedback" th:if="${errors!=null && #maps.containsKey(errors, 'usernameError')}">
+					<div class="alert alert-danger" th:text="${errors.usernameError}" ></div>
+				</div>
 				<span class="focus-input100"></span>
 			</div>
 
+<!--			PASSWORD-->
 			<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-				<input class="input100" type="password" name="password" placeholder="password">
+				<input class="input100 form-control" type="password" id="password-input" name="password" placeholder="password"
+					   th:classappend="${errors!=null && #maps.containsKey(errors, 'passwordError')?'is-invalid':''}"
+					   th:value="${user?.password?:''}">
+				<div class="invalid-feedback" th:if="${errors!=null && #maps.containsKey(errors, 'passwordError')}">
+					<div class="alert alert-danger" th:text="${errors.passwordError}" ></div>
+
+				</div>
+				<a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
 				<span class="focus-input100"></span>
+			</div>
+
+
+			<div class="wrap-input100 validate-input m-b-15">
+				<div class="g-recaptcha" name ="g-recaptcha-response" data-sitekey="6LeoNdUZAAAAABFSzsaXFz0JcyUr0O1m-dyXDOLh"></div>
 			</div>
 
 			<div class="container-login100-form-btn">
