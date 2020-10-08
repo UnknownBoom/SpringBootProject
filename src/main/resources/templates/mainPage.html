@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> OurApp</title>
 
@@ -13,8 +13,7 @@
 <body class="bg-body">
 
 <div>
-    <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value=${_csrf.token} />
+    <form action="/logout" th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
@@ -22,7 +21,7 @@
 </form>
 <form action="/tables/filter" method="post" >
         <input type="text" name="filter" placeholder="Input an id"/>
-    <input type="hidden" name="_csrf" value=${_csrf.token} />
+
     <button type="submit" class="btn-primary">Filter</button>
 </form>
 <table class="table table-hover table-dark" contenteditable="true">
@@ -35,14 +34,14 @@
     </tr>
     </thead>
     <tbody>
-    <#list users as user>
+    <th:block th:each="user:${users}">
     <tr>
-        <td>${user.id?has_content?then(user.id, "null")}</td>
-        <td>${user.username?has_content?then(user.username, "null")}</td>
-        <td>${user.password?has_content?then(user.password, "null")}</td>
+        <td th:text="${user.id}?:''">${user.id?has_content?then(user.id, "null")}</td>
+        <td th:text="${user.username} ?:''"></td>
+        <td th:text="${user.password} ?:''"></td>
         <td><button form="save_edit" type="submit" class="btn btn-light cellbut" contenteditable="false">Save</button>
     </tr>
-        </#list>
+    </th:block>
     </tbody>
 </table>
 </body>
