@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(myAuthenticationSuccessHandler())
                 .permitAll()
                 .and()
+                .rememberMe()
+                .and()
                 .logout()
                 .logoutSuccessUrl("/login")
                 .permitAll();
