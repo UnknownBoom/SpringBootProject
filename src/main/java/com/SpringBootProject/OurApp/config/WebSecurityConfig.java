@@ -1,22 +1,36 @@
 package com.SpringBootProject.OurApp.config;
 
+import com.SpringBootProject.OurApp.service.UserService;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
     @Autowired
-    private  DataSource dataSource;
+    private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
 
     @Bean
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
@@ -43,14 +57,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("select username, password,'true' as active from users where username=?")
-                .authoritiesByUsernameQuery("select username,roles from users join user_role on id=user_id where username=?");
-
-        //"select u.username, ur.roles, from users u inner join user_role ur on u.id = ur.user_id where u.username=?"
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new MessageDigestPasswordEncoder("MD5");
+    }
+
+
 
 
 

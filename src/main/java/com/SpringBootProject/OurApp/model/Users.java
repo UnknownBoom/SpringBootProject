@@ -17,10 +17,13 @@ import java.util.Set;
 public class Users implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "users_generator")
+    @SequenceGenerator(name = "users_generator",sequenceName = "users_seq" ,allocationSize = 25,initialValue = 25)
     private Long id;
+
     @NaturalId
     private String username;
+
     @NaturalId
     private String password;
 
