@@ -1,0 +1,9 @@
+.scroll-table{
+	height: 500px;
+	width: 1000px;
+	margin-left: 60px;
+	margin-top: 25px;
+	box-shadow: 0 0 10px black;
+	overflow: auto;
+}
+
