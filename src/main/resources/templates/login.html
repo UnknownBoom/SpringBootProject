@@ -20,7 +20,8 @@
 			</div>
 
 			<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-				<input class="input100" type="password" name="password" placeholder="password">
+				<input class="input100" type="password" id="password-input" name="password" placeholder="password">
+				<a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
 				<span class="focus-input100"></span>
 			</div>
 
@@ -39,5 +40,7 @@
 	</div>
 </div>
 <div th:replace="fragments/login_reg :: login_reg_script"></div>
+
+
 </body>
 </html>

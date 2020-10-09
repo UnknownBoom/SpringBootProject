@@ -19,7 +19,7 @@
 </div>
 <form method="post" id="save_edit" action="save">
 </form>
-<form action="/tables/filter" method="post" >
+<form th:action="@{/tables/filter}" method="post" >
         <input type="text" name="filter" placeholder="Input an id"/>
 
     <button type="submit" class="btn-primary">Filter</button>
