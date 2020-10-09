@@ -1,8 +1,47 @@
 .scroll-table{
-	height: 500px;
-	width: 1000px;
+	height: 74vh;
+	width: 88vw;
 	margin-left: 60px;
-	margin-top: 25px;
+	margin-top: 4vh;
 	box-shadow: 0 0 10px black;
 	overflow: auto;
+}
+.btn-add{
+	margin-left: 78.15vw;
+	margin-top: 2vh;
+}
+.btn-ed-del{
+	z-index: 0;
+}
+.nav-pos{
+	padding-left: 10vw;
+	padding-right: 10vw;
+}
+.btn-logout{
+	margin-left: 25vw;
+}
+table{
+	height: 90%;
+	width: 90%;
+	background-color: rgba(0.8,0.8,0.8,0.7);
+	border-collapse: collapse;
+}
+tr th{
+	color: white;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  text-align: center;
+  z-index: 1;
+}
+td{
+	border: 1px solid grey;
+	color: white;
+	overflow: hidden;
+}
+.container {
+  overflow: hidden;
+  clear: both;
 }
