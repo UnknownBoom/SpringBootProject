@@ -31,7 +31,7 @@ public class Furnitures {
     private Suppliers main_supplier = null;
 
     @ElementCollection(targetClass = Furniture_types.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "furniture_types", joinColumns = @JoinColumn(name = "furniture_article"))
+    @CollectionTable(name = "furniture_type", joinColumns = @JoinColumn(name = "furniture_article"))
     @Enumerated(EnumType.STRING)
     private Set<Furniture_types> furniture_type;
 

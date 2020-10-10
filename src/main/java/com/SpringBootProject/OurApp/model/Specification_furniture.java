@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,9 +22,8 @@ public class Specification_furniture implements Serializable {
     private Product_types product_type;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "furniture_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @CollectionTable(name = "furniture_type", joinColumns = @JoinColumn(name = "furniture_article"))
+    @Enumerated(EnumType.STRING)
     private Furniture_types furniture;
 
     @Column(nullable = false)

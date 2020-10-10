@@ -38,7 +38,7 @@ public class Materials {
     private byte[] image =null;
 
     @ElementCollection(targetClass = Material_types.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "material_types", joinColumns = @JoinColumn(name = "fmaterial_article"))
+    @CollectionTable(name = "material_type", joinColumns = @JoinColumn(name = "fmaterial_article"))
     @Enumerated(EnumType.STRING)
     private Set<Material_types> material_types;
 
