@@ -13,8 +13,10 @@ import java.sql.Date;
 public class Orders implements Serializable {
 
      @Id
+
      private Long order_id;
 
+     @Column(nullable = false)
      private Date order_date;
 
      private String order_name;

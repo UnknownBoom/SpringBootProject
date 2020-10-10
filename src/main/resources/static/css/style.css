@@ -9,7 +9,7 @@ nav{
 }
 .custom-layout{
     min-height: 100vh;
-    min-width: 97vw;
+    width: 97vw;
     height:auto;
     opacity: .9;
 }
