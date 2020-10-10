@@ -29,7 +29,6 @@ public class Users implements UserDetails {
     private String username;
 
     @NaturalId
-
     @Column(name = "password")
     @Pattern(regexp = "(?=^.{6,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",message = "Weak password *(Sorry)")
     @NotBlank(message = "Password cannot be empty")

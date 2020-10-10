@@ -19,7 +19,7 @@
       				<div><th scope="col" class="tmark">Type</th></div>
       				<div><th scope="col" class="tmark">Price</th></div>
       				<div><th scope="col" class="tmark">Weight</th></div>
-      				<div><th scope="col" class="tmark">Photo</th></div>
+      				<div><th scope="col" class="tmark">Image</th></div>
       				<div><th scope="col">Action</th></div>
 
     			</tr>
@@ -27,14 +27,17 @@
   			<div class="container">
   			<tbody>
     			<tr>
-			    	<th scope="row">FN FAL 2000[m]N-P200</th>
-			    	<td>FN FAL</td>
-			    	<td>cm</td>
-			    	<td>1</td>
-			    	<td>MSI</td>
-			    	<td>Rifle</td>
-			    	<td>4000</td>
-			    	<td>3.5</td>
+					<th:block th:each="furniture:${furnitures}">
+			    	<td th:text="${furniture.article}"></td>
+			    	<td th:text="${furniture.product_name}"></td>
+			    	<td th:text="${furniture.unit}"></td>
+			    	<td th:text="${furniture.amount}"></td>
+			    	<td th:text="${furniture.main_supplier.supplier_name}"></td>
+			    	<td th:text="${furniture.furniture_type}"></td>
+			    	<td th:text="${furniture.purchase_price}"></td>
+			    	<td th:text="${furniture.weight}"></td>
+			    	<td><a th:href="@{|/tables/furnitures/${furniture.article}|}" th:if="${furniture.image}">Photo</a></td>
+
 			    	<td><img src=""></td>
 			    	<td id="1"><div class="btn-group" role="group" aria-label="Basic example">
 						  <button type="button" class="btn btn-secondary btn-ed-del" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>

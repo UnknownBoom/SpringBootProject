@@ -1,15 +1,21 @@
 package com.SpringBootProject.OurApp.controller;
 
+import com.SpringBootProject.OurApp.model.Furnitures;
 import com.SpringBootProject.OurApp.model.Orders;
-import com.SpringBootProject.OurApp.model.Users;
+import com.SpringBootProject.OurApp.repo.FurnituresRepo;
 import com.SpringBootProject.OurApp.repo.OrdersRepo;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tables")
@@ -21,27 +27,27 @@ public class TableController {
     @Autowired
     private OrdersRepo ordersRepo;
 
+    @Autowired
+    private FurnituresRepo furnituresRepo;
+
     @GetMapping("/orders")
     public String getOrdersTable(Model model, @RequestParam(required = false) String id){
-        if(id==null || id.isEmpty()){
-            Iterable<Orders> orders = ordersRepo.findAll();
-            model.addAttribute("orders",orders);
-            return "orders";
-        }else{
+        Iterable<Orders> orders;
+        if(id!=null && !id.isEmpty()){
             try{
-                Orders OrdersByOrder_id = ordersRepo.findById(Long.parseLong(id));
-                model.addAttribute("orders",OrdersByOrder_id);
-                return "orders";
+                orders = Arrays.asList(ordersRepo.findById(Long.parseLong(id)));
             }catch (Exception e){
-                return "orders";
+                orders = ordersRepo.findAll();
             }
-        }
-    }
 
-    @PostMapping("orders/filter/")
-    public String filterById(@RequestParam(defaultValue = "",required = false) String filter, Model model){
+        }else{
+            orders = ordersRepo.findAll();
+
+        }
+        model.addAttribute("orders",orders);
         return "orders";
     }
+
 
     @GetMapping("/materials")
     public String getMaterialsTable(Model model){
@@ -56,7 +62,16 @@ public class TableController {
         return "operations";
     }
     @GetMapping("/furnitures")
-    public String getFurnituresTable(Model model){
+    public String getFurnituresTable(Model model,@RequestParam(required = false) String id){
+        Iterable<Furnitures> furnitures;
+        if(id!=null && !id.isEmpty()){
+            furnitures = furnituresRepo.findAllByArticleLike(id);
+        }else
+        {
+            furnitures = furnituresRepo.findAll();
+        }
+
+        model.addAttribute("furnitures",furnitures);
         return "furnitures";
     }
 

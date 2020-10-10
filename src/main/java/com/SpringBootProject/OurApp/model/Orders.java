@@ -1,10 +1,12 @@
 package com.SpringBootProject.OurApp.model;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +15,8 @@ import java.sql.Date;
 public class Orders implements Serializable {
 
      @Id
-
+     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
+     @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
      private Long order_id;
 
      @Column(nullable = false)
@@ -23,6 +26,7 @@ public class Orders implements Serializable {
 
      @ManyToOne
      @JoinColumn(name = "product_type_id")
+     @Cascade(org.hibernate.annotations.CascadeType.ALL)
      private Product_types product_type;
 
      @ManyToOne

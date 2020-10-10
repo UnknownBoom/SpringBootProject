@@ -2,6 +2,7 @@ package com.SpringBootProject.OurApp.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,9 +27,12 @@ public class Furnitures {
 
     @JoinColumn(nullable = true)
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Suppliers main_supplier = null;
 
-    @OneToMany(mappedBy = "furniture_type")
+    @ElementCollection(targetClass = Furniture_types.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "furniture_types", joinColumns = @JoinColumn(name = "furniture_article"))
+    @Enumerated(EnumType.STRING)
     private Set<Furniture_types> furniture_type;
 
     @Column(nullable = false)

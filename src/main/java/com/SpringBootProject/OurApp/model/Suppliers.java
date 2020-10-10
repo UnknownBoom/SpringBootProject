@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -16,10 +13,13 @@ import javax.persistence.Table;
 public class Suppliers {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
+    @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
     private Long supplier_id;
 
     @NaturalId
     private String supplier_name;
+
 
     @Column(nullable = true)
     private String address =null;

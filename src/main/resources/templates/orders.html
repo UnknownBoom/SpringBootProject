@@ -39,7 +39,7 @@
 							<td th:text="${order.customer.username} ?:''"></td>
 							<td th:text="${order.manager.username} ?:''"></td>
 							<td th:text="${order.planed_date_end} ?:''"></td>
-							<td ><a th:if="order.order_schemes!=null" th:href="@{|/getSchemas/orders/${order.order_id}|}" th:text="Schemas"></a></td>
+							<td ><a th:if="${order.order_schemes}!=null" th:href="@{|/getSchemas/orders/${order.order_id}|}" th:text="Schemas"></a></td>
 							<td><div class="btn-group" role="group" aria-label="Basic example">
 								<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
 								<button type="button" class="btn btn-secondary">Delete</button>
