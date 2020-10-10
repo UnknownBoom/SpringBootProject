@@ -11,6 +11,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "orders")
 public class Orders implements Serializable {
+
      @Id
      private Long order_id;
 

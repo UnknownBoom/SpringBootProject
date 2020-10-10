@@ -2,4 +2,18 @@
     background-image: url("/images/bg-01.jpg");
     background-size:cover;
 }
-.cellbut {width:100%}
+
+nav{
+    opacity: .9;
+    z-index: 999999;
+}
+.custom-layout{
+    min-height: 100vh;
+    min-width: 97vw;
+    height:auto;
+    opacity: .9;
+}
+.custom-font{
+    color: #d1ecf1;
+    text-align: center;
+}
