@@ -1,21 +1,12 @@
 package com.SpringBootProject.OurApp.model;
 
-
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
-@Entity
 @Data
-@NoArgsConstructor
-@Table(name="specification_furniture")
-@IdClass(Specification_furniture_Ids.class)
-public class Specification_furniture implements Serializable {
-
+public class Specification_furniture_Ids  implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "product_type_id")
@@ -26,7 +17,8 @@ public class Specification_furniture implements Serializable {
     @Enumerated(EnumType.STRING)
     private Furniture_types furniture;
 
-    @Column(nullable = false)
-    private Long amount;
-
+    public Specification_furniture_Ids(Product_types product_type, Furniture_types furniture) {
+        this.product_type = product_type;
+        this.furniture = furniture;
+    }
 }

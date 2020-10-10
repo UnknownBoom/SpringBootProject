@@ -39,39 +39,39 @@
     			<tr>
       				<div><th scope="col" class="tmark">Article</th></div>
       				<div><th scope="col" class="tmark">Name</th></div>
+					<div><th scope="col" class="tmark">Amount</th></div>
       				<div><th scope="col" class="tmark">Unit</th></div>
-      				<div><th scope="col" class="tmark">Amount</th></div>
       				<div><th scope="col" class="tmark">Supplier</th></div>
       				<div><th scope="col" class="tmark">Photo</th></div>
       				<div><th scope="col" class="tmark">Type</th></div>
-      				<div><th scope="col" class="tmark">ISO</th></div>
       				<div><th scope="col" class="tmark">Length</th></div>
       				<div><th scope="col" class="tmark">Description</th></div>
-      				
+      				<div><th scope="col" class="tmark">GOST</th></div>
       				<div><th scope="col">Action</th></div>
 
     			</tr>
   			</thead>
   			<div class="container">
   			<tbody>
-    			<tr>
-			    	<th scope="row">ST ARMD 1-S</th>
-			    	<td>Steel</td>
-			    	<td>m</td>
-			    	<td>1</td>
-			    	<td>Metal Factory</td>
-			    	<td><img src=""></td>
-			    	<td>Sheet</td>
-			    	<td>ISO/IEC 12207</td>
-			    	<td>5</td>
-			    	<td>A simple sheet of steel</td>
-			    	<td id="1"><div class="btn-group" role="group" aria-label="Basic example">
-						  <button type="button" class="btn btn-secondary btn-ed-del" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
-						  <button type="button" class="btn btn-secondary btn-ed-del">Delete</button>
-						</div></td>	
-   				</tr>
- 
-   				</tr>
+			<th:block th:each="material:${materials}">
+				<tr>
+					<td th:text="${material.article}?:''"></td>
+					<td th:text="${material.product_name}?:''"></td>
+					<td th:text="${material.amount}?:''"></td>
+					<td th:text="${material.unit}?:''"></td>
+					<td th:text="${material.main_supplier.supplier_name}?:''"></td>
+					<td><a href="#" th:if="${material.image}">Photo</a></td>
+					<td th:text="${material.material_types}?:''"></td>
+					<td th:text="${material.length}?:''"></td>
+					<td th:text="${material.description}?:''"></td>
+					<td th:text="${material.gost}?:''"></td>
+
+					<td><div class="btn-group" role="group" aria-label="Basic example">
+						<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
+						<button type="button" class="btn btn-secondary">Delete</button>
+					</div></td>
+				</tr>
+			</th:block>
   			</tbody>
   		</div>
 		</table>

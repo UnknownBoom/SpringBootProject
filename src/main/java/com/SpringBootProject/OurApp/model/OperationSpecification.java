@@ -3,38 +3,38 @@ package com.SpringBootProject.OurApp.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name="operation_specification")
-public class Operation_specification implements Serializable {
+public class OperationSpecification implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
     @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
-    private Long operation_id;
+    private Long operation_specification;
 
-    @Id
+    @NaturalId
     @ManyToOne
     @JoinColumn(nullable = false,name = "product_type_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Product_types product_type;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(nullable = false,name = "operation_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Operations operation;
+    @ElementCollection(targetClass = Operations.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "operation_type", joinColumns = @JoinColumn(name = "operation_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Operations> operation;
 
-    @ManyToOne
-    @JoinColumn(nullable = true,name = "equipment_type_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private  Equipment_types equipment_type =null;
+    @ElementCollection(targetClass = Equipment_types.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "equipment_type", joinColumns = @JoinColumn(name = "operation_specification_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Equipment_types> equipment_type =null;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

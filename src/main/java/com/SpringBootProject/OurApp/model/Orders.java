@@ -26,14 +26,13 @@ public class Orders implements Serializable {
 
      @ManyToOne
      @JoinColumn(name = "product_type_id")
-     @Cascade(org.hibernate.annotations.CascadeType.ALL)
      private Product_types product_type;
 
-     @ManyToOne
      @JoinColumn(name = "customer_id",nullable = false)
+     @OneToOne
      private Users customer;
 
-     @ManyToOne
+     @OneToOne
      @JoinColumn(name = "manager_id",nullable = true)
      private Users manager = null;
 

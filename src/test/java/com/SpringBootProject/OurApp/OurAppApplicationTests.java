@@ -3,6 +3,7 @@ package com.SpringBootProject.OurApp;
 import com.SpringBootProject.OurApp.model.*;
 import com.SpringBootProject.OurApp.repo.*;
 
+
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.Instant;
 import java.util.*;
 
 @SpringBootTest
@@ -28,6 +28,16 @@ class OurAppApplicationTests {
 
 	@Autowired
 	private SuppliersRepo suppliersRepo;
+
+	@Autowired
+	private OperationSpecificationRepo operationSpecificationRepo;
+
+
+	@Autowired
+	Product_typesRepo product_typesRepo;
+
+	@Autowired
+	MaterialsRepo materialsRepo;
 
 
 	@Test
@@ -82,10 +92,57 @@ class OurAppApplicationTests {
 		furnituresRepo.save(furnitures);
 	}
 
+	@Test
+	void fdeleteusers(){
+		Users byUsername = usersRepo.findByUsername("101");
+		if(byUsername!=null) usersRepo.delete(byUsername);
+		else{
+			System.out.println("Is null");
+			List<Users> all = usersRepo.findAll();
+			all.forEach(t-> System.out.println(t.getSurname()));
+		}
+
+	}
+
+	@Test
+	void gainsertserecOpp(){
+		Product_types product_types = new Product_types();
+		product_types.setDimensions(100);
+		product_types.setProduct_type_name("Test1");
+		product_typesRepo.save(product_types);
+
+
+	}
+
+	@Test
+	void hInsertScpecOpp(){
+		OperationSpecification operationSpecification = new OperationSpecification();
+		operationSpecification.setEquipment_type(Collections.singleton(Equipment_types.Test));
+		operationSpecification.setOperation(Collections.singleton(Operations.TYP1));
+		operationSpecification.setOperation_time(Date.valueOf("2015-12-12"));
+		operationSpecification.setOperation_specification(25L);
+		operationSpecification.setProduct_type(product_typesRepo.findAll().get(0));
+		operationSpecificationRepo.save(operationSpecification);
+
+	}
+	@Test
+	void jInsertmaterials(){
+		Materials materials = new Materials();
+		materials.setAmount(13);
+		materials.setArticle("TM");
+		materials.setGost("TMGOST");
+		materials.setLength(900);
+		materials.setUnit("test");
+		materials.setProduct_name("TEst");
+		materials.setMaterial_types(Collections.singleton(Material_types.TEst));
+		materials.setMain_supplier(suppliersRepo.findAll().get(0));
+		materials.setPurchase_price(new BigDecimal(123));
+		materialsRepo.save(materials);
+	}
+
 
 	@Test
 	void contextLoads() {
-
 
 	}
 

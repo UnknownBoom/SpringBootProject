@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/main_fragment :: header ('Operations')")>
+<head th:replace="fragments/main_fragment :: header ('OperationsSpec')")>
 	<title>Основная форма</title>
 
 </head>
@@ -39,24 +39,28 @@
 		<table class="table table-dark">
   			<thead class="thead-dark">
     			<tr>
-      				<div><th scope="col" class="tmark">ID</th></div>
-      				<div><th scope="col" class="tmark">Name</th></div>
-      				<div><th scope="col">Action</th></div>
+					<div><th scope="col" class="tmark">operation_id</th></div>
+					<div><th scope="col" class="tmark">operation_name</th></div>
+					<div><th scope="col" class="tmark">equipment_type</th></div>
+					<div><th scope="col" class="tmark">operation_time</th></div>
+					<div><th scope="col">Action</th></div>
 
     			</tr>
   			</thead>
   			<div class="container">
   			<tbody>
-    			<tr>
-			    	<th scope="row">1</th>
-			    	<td>Multiply</td>
-			    	<td id="1"><div class="btn-group" role="group" aria-label="Basic example">
-						  <button type="button" class="btn btn-secondary btn-ed-del" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
-						  <button type="button" class="btn btn-secondary btn-ed-del">Delete</button>
-						</div></td>	
-   				</tr>
- 
-   				</tr>
+				<th:block th:each="operation:${operations}">
+					<tr>
+						<td th:text="${operation.operation_specification}?:''"></td>
+						<td th:text="${operation.operation} ?:''"></td>
+						<td th:text="${operation.equipment_type} ?:''"></td>
+						<td th:text="${operation.operation_time} ?:''"></td>
+						<td><div class="btn-group" role="group" aria-label="Basic example">
+							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
+							<button type="button" class="btn btn-secondary">Delete</button>
+						</div></td>
+					</tr>
+				</th:block>
   			</tbody>
   		</div>
 		</table>

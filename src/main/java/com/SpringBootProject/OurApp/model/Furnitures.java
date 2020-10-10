@@ -27,7 +27,7 @@ public class Furnitures {
 
     @JoinColumn(nullable = true)
     @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+
     private Suppliers main_supplier = null;
 
     @ElementCollection(targetClass = Furniture_types.class, fetch = FetchType.EAGER)

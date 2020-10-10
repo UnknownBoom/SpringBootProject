@@ -12,17 +12,17 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @Table(name="specification_materials")
+@IdClass(Specification_materials_Ids.class)
 public class Specification_materials implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "product_type_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+
     private Product_types product_type;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "material_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Materials material;
 
     @Column(nullable = false)

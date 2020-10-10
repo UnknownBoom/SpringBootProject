@@ -15,8 +15,6 @@ import java.util.Set;
 @Table(name="materials")
 public class Materials {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
-    @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
     private String article;
 
     @Column(nullable = false)
@@ -30,7 +28,7 @@ public class Materials {
 
     @ManyToOne
     @JoinColumn(nullable = true,name = "main_supplier_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+
     private Suppliers main_supplier =null;
 
     @Column(nullable = true)
@@ -38,7 +36,7 @@ public class Materials {
     private byte[] image =null;
 
     @ElementCollection(targetClass = Material_types.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "material_type", joinColumns = @JoinColumn(name = "fmaterial_article"))
+    @CollectionTable(name = "material_type", joinColumns = @JoinColumn(name = "material_article"))
     @Enumerated(EnumType.STRING)
     private Set<Material_types> material_types;
 

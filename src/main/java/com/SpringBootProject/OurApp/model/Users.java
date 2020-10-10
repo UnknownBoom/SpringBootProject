@@ -2,6 +2,7 @@ package com.SpringBootProject.OurApp.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,6 +49,7 @@ public class Users implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Roles> roles;
+
 
     @Lob
     @Column(nullable = true)
