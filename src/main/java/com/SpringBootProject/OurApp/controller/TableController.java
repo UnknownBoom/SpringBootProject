@@ -1,11 +1,9 @@
 package com.SpringBootProject.OurApp.controller;
 
-import com.SpringBootProject.OurApp.model.Furnitures;
-import com.SpringBootProject.OurApp.model.Materials;
-import com.SpringBootProject.OurApp.model.OperationSpecification;
-import com.SpringBootProject.OurApp.model.Orders;
+import com.SpringBootProject.OurApp.model.*;
 import com.SpringBootProject.OurApp.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +31,7 @@ public class TableController {
     @Autowired
     private MaterialsRepo materialsRepo;
 
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @GetMapping("/orders")
     public String getOrdersTable(Model model, @RequestParam(required = false) String id){
         Iterable<Orders> orders;
@@ -56,14 +55,8 @@ public class TableController {
     public String getMaterialsTable(Model model,@RequestParam(required = false) String id){
         if(id!=null && !id.isEmpty()){
             try{
-                Optional<Materials> byId = materialsRepo.findById(id);
-                if(byId.isPresent()){
-                    ArrayList<Materials> materials = new ArrayList<>();
-                    materials.add(byId.get());
-                    model.addAttribute("materials",materials);
-                }else{
-                    model.addAttribute("materials",new ArrayList<>());
-                }
+                List<Materials> byId = materialsRepo.findByArticleContaining(id);
+                model.addAttribute("materials",byId);
 
             }catch (Exception e){
                 model.addAttribute("materials", materialsRepo.findAll());
@@ -74,10 +67,13 @@ public class TableController {
         }
         return "materials";
     }
+
     @GetMapping("/suppliers")
     public String getSuppliersTable(Model model){
         return "suppliers";
     }
+
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @GetMapping("/operations")
     public String getOperationsTable(Model model,@RequestParam(required = false) String id){
         if(id!=null && !id.isEmpty()){
@@ -86,7 +82,7 @@ public class TableController {
                 if(specification.isPresent()){
                     ArrayList<OperationSpecification> list = new ArrayList<>();
                     list.add(specification.get());
-                    model.addAttribute("operations",specification);
+                    model.addAttribute("operations",list);
                 }else{
                     model.addAttribute("operations",new ArrayList<>());
                 }
@@ -101,11 +97,13 @@ public class TableController {
         }
         return "operations";
     }
+
+
     @GetMapping("/furnitures")
     public String getFurnituresTable(Model model,@RequestParam(required = false) String id){
         Iterable<Furnitures> furnitures;
         if(id!=null && !id.isEmpty()){
-            furnitures = furnituresRepo.findAllByArticleLike(id);
+            furnitures = furnituresRepo.findByArticleContaining(id);
         }else
         {
             furnitures = furnituresRepo.findAll();
@@ -114,5 +112,30 @@ public class TableController {
         model.addAttribute("furnitures",furnitures);
         return "furnitures";
     }
+
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @GetMapping("/users")
+    public String getUsersTable(Model model,@RequestParam(required = false) String id){
+        if(id!=null && !id.isEmpty()) {
+            try {
+                Optional<Users> users = usersRepo.findById(Long.parseLong(id));
+                if (users.isPresent()) {
+                    ArrayList<Users> list = new ArrayList<>();
+                    list.add(users.get());
+                    model.addAttribute("users", list);
+                } else {
+                    model.addAttribute("users", new ArrayList<>());
+                }
+
+            } catch (Exception e) {
+                model.addAttribute("users", usersRepo.findAll());
+            }
+        }else {
+            model.addAttribute("users",usersRepo.findAll());
+        }
+
+        return "users";
+    }
+
 
 }
