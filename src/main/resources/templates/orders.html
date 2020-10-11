@@ -32,7 +32,7 @@
 					<tbody>
 					<th:block th:each="order:${orders}">
 						<tr>
-							<td th:text="${order.order_id}?:''">${user.id?has_content?then(user.id, "null")}</td>
+							<td th:text="${order.order_id}?:''"></td>
 							<td th:text="${order.order_date} ?:''"></td>
 							<td th:text="${order.order_name} ?:''"></td>
 							<td th:text="${order.product_type} ?:''"></td>

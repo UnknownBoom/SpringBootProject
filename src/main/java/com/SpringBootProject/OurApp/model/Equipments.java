@@ -13,12 +13,12 @@ import java.util.Set;
 @Table(name = "equipments")
 public class Equipments {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
-    @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Equipments_generator")
+    @SequenceGenerator(name = "Equipments_generator",sequenceName = "Equipments_seq" ,allocationSize = 25,initialValue = 25)
     private String mark;
 
     @ElementCollection(targetClass = Equipment_types.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "equipment_type", joinColumns = @JoinColumn(name = "mark_id"))
+    @CollectionTable(name = "equipment_type_2", joinColumns = @JoinColumn(name = "mark_id",nullable = true))
     @Enumerated(EnumType.STRING)
     private Set<Equipment_types> equipment_type;
 

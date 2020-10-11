@@ -47,18 +47,19 @@
   			</thead>
   			<div class="container">
   			<tbody>
+			<th:block th:each="supp:${suppliers}">
     			<tr>
-			    	<th scope="row">1</th>
-			    	<td>Metal Factory</td>
-			    	<td>Moscow Pushkina st. 123</td>
-			    	<td>30</td>
-			    	<td id="1"><div class="btn-group" role="group" aria-label="Basic example">
+					<td th:text="${supp.supplier_id}?:''"></td>
+					<td th:text="${supp.supplier_name} ?:''"></td>
+					<td th:text="${supp.address} ?:''"></td>
+					<td th:text="${supp.delivery_period} ?:''"></td>
+			    	<td ><div class="btn-group" role="group" aria-label="Basic example">
 						  <button type="button" class="btn btn-secondary btn-ed-del" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
 						  <button type="button" class="btn btn-secondary btn-ed-del">Delete</button>
-						</div></td>	
+						</div>
+					</td>
    				</tr>
- 
-   				</tr>
+			</th:block>
   			</tbody>
   		</div>
 		</table>

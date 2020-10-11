@@ -31,6 +31,15 @@ public class TableController {
     @Autowired
     private MaterialsRepo materialsRepo;
 
+    @Autowired
+    private SuppliersRepo suppliersRepo;
+
+    @Autowired
+    private Specification_furnitureRepo  specification_furnitureRepo;
+
+    @Autowired
+    private Product_typesRepo product_typesRepo;
+
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @GetMapping("/orders")
     public String getOrdersTable(Model model, @RequestParam(required = false) String id){
@@ -69,7 +78,20 @@ public class TableController {
     }
 
     @GetMapping("/suppliers")
-    public String getSuppliersTable(Model model){
+    public String getSuppliersTable(@RequestParam(required = false) String id,Model model){
+        List<Suppliers> suppliers = new ArrayList<Suppliers>();
+        if(id!=null && !id.isEmpty()){
+            try{
+                Optional<Suppliers> byId = suppliersRepo.findById(Long.parseLong(id));
+                if(byId.isPresent()){
+                    suppliers.add(byId.get());
+                }
+            }catch (Exception e){
+            }
+        }else {
+            suppliers.addAll(suppliersRepo.findAll());
+        }
+        model.addAttribute("suppliers",suppliers);
         return "suppliers";
     }
 
@@ -135,6 +157,25 @@ public class TableController {
         }
 
         return "users";
+    }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @GetMapping("/Specification_furniture")
+    public String getSpec_furn(Model model,@RequestParam(required = false) String id){
+        List<Specification_furniture> spec_furns = new ArrayList<>();
+        if(id!=null && !id.isEmpty()){
+            try{
+                Optional<Specification_furniture> byId = specification_furnitureRepo.findById( product_typesRepo.findById(Long.parseLong(id)).get());
+                if(byId.isPresent()){
+                    spec_furns.add(byId.get());
+                }
+
+            }catch (Exception e){
+            }
+        }else {
+            spec_furns.addAll(specification_furnitureRepo.findAll());
+        }
+        model.addAttribute("spec_furns",spec_furns);
+        return "spec_furn";
     }
 
 

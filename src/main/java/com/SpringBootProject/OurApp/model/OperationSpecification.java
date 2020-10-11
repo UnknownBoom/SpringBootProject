@@ -17,8 +17,8 @@ import java.util.Set;
 public class OperationSpecification implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
-    @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "OperationSpecification_gen")
+    @SequenceGenerator(name = "OperationSpecification_gen",sequenceName = "OperationSpecification_seq" ,allocationSize = 25,initialValue = 25)
     private Long operation_specification;
 
     @NaturalId
@@ -27,12 +27,12 @@ public class OperationSpecification implements Serializable {
     private Product_types product_type;
 
     @ElementCollection(targetClass = Operations.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "operation_type", joinColumns = @JoinColumn(name = "operation_id"))
+    @CollectionTable(name = "operation_type", joinColumns = @JoinColumn(name = "operation_id",nullable = true))
     @Enumerated(EnumType.STRING)
     private Set<Operations> operation;
 
     @ElementCollection(targetClass = Equipment_types.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "equipment_type", joinColumns = @JoinColumn(name = "operation_specification_id"))
+    @CollectionTable(name = "equipment_type_1", joinColumns = @JoinColumn(name = "operation_specification_id"))
     @Enumerated(EnumType.STRING)
     private Set<Equipment_types> equipment_type =null;
 

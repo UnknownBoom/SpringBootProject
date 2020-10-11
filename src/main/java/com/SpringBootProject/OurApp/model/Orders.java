@@ -15,8 +15,8 @@ import java.util.Set;
 public class Orders implements Serializable {
 
      @Id
-     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
-     @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)
+     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Orders_generator")
+     @SequenceGenerator(name = "Orders_generator",sequenceName = "Orders_seq" ,allocationSize = 25,initialValue = 25)
      private Long order_id;
 
      @Column(nullable = false)

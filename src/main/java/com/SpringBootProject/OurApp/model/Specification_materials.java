@@ -17,7 +17,6 @@ public class Specification_materials implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "product_type_id")
-
     private Product_types product_type;
 
     @Id

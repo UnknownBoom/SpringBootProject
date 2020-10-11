@@ -42,6 +42,9 @@ class OurAppApplicationTests {
 	@Autowired
 	MaterialsRepo materialsRepo;
 
+	@Autowired
+	Specification_furnitureRepo specification_furnitureRepo;
+
 
 	@Test
 	void ainsertUsers(){
@@ -95,20 +98,20 @@ class OurAppApplicationTests {
 		furnituresRepo.save(furnitures);
 	}
 
-	@Test
-	void fdeleteusers(){
-		Users byUsername = usersRepo.findByUsername("101");
-		if(byUsername!=null) usersRepo.delete(byUsername);
-		else{
-			System.out.println("Is null");
-			List<Users> all = usersRepo.findAll();
-			all.forEach(t-> System.out.println(t.getSurname()));
-		}
+//	@Test
+//	void fdeleteusers(){
+//		Users byUsername = usersRepo.findByUsername("101");
+//		if(byUsername!=null) usersRepo.delete(byUsername);
+//		else{
+//			System.out.println("Is null");
+//			List<Users> all = usersRepo.findAll();
+//			all.forEach(t-> System.out.println(t.getSurname()));
+//		}
+//
+//	}
 
-	}
-
 	@Test
-	void gainsertserecOpp(){
+	void gainsertprod_types(){
 		Product_types product_types = new Product_types();
 		product_types.setDimensions(100);
 		product_types.setProduct_type_name("Test1");
@@ -144,16 +147,26 @@ class OurAppApplicationTests {
 	}
 	@Value("${upload_path_users}")
 	String path;
-	@Test
-	void contextLoads() throws IOException {
-		File file = new File(path);
-		file.createNewFile();
-	}
-	@Test
-	void contextLoads1() throws IOException {
-		Iterable<Orders> ordersById = ordersRepo.findOrdersByUser_idList(25L);
-		ordersById.forEach(t-> System.out.println(t.getCustomer()));
+//	@Test
+//	void contextLoads() throws IOException {
+//		File file = new File(path);
+//		file.createNewFile();
+//	}
+//	@Test
+//	void contextLoads1() throws IOException {
+//		Iterable<Orders> ordersById = ordersRepo.findOrdersByUser_idList(25L);
+//		ordersById.forEach(t-> System.out.println(t.getCustomer()));
+//
+//	}
 
+	@Test
+	void kInsertspec_furn(){
+		Specification_furniture specification_furniture = new Specification_furniture();
+		specification_furniture.setAmount(123L);
+		specification_furniture.setFurniture(Furniture_types.Test);
+		Product_types product_types = product_typesRepo.findAll().get(0);
+		specification_furniture.setProduct_type(product_types);
+		specification_furnitureRepo.save(specification_furniture);
 	}
 
 }
