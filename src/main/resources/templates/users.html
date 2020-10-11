@@ -42,6 +42,7 @@
                     <div><th scope="col" class="tmark">Surname</th></div>
                     <div><th scope="col" class="tmark">Patronymic</th></div>
                     <div><th scope="col" class="tmark">username</th></div>
+                    <div><th scope="col" class="tmark">Roles</th></div>
                     <div><th scope="col" class="tmark">Photo</th></div>
                     <div><th scope="col">Action</th></div>
 
@@ -56,6 +57,7 @@
                             <td th:text="${user.surname}?:''"></td>
                             <td th:text="${user.patronymic}?:''"></td>
                             <td th:text="${user.username}?:''"></td>
+                            <td th:text="${user.roles}?:''"></td>
                             <td><a href="#" th:if="${user.photo}">Photo</a></td>
 
                             <td><div class="btn-group" role="group" aria-label="Basic example">

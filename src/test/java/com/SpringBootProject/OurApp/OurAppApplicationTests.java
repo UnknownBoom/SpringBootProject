@@ -8,8 +8,11 @@ import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.*;
@@ -139,10 +142,17 @@ class OurAppApplicationTests {
 		materials.setPurchase_price(new BigDecimal(123));
 		materialsRepo.save(materials);
 	}
-
-
+	@Value("${upload_path_users}")
+	String path;
 	@Test
-	void contextLoads() {
+	void contextLoads() throws IOException {
+		File file = new File(path);
+		file.createNewFile();
+	}
+	@Test
+	void contextLoads1() throws IOException {
+		Iterable<Orders> ordersById = ordersRepo.findOrdersByUser_idList(25L);
+		ordersById.forEach(t-> System.out.println(t.getCustomer()));
 
 	}
 

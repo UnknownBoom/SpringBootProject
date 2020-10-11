@@ -60,7 +60,7 @@ public class MySimpleUrlAuthenticationSuccessHandler
 //        } else {
 //            throw new IllegalStateException();
 //        }
-        return "/tables/orders";
+        return "/";
     }
 
     protected void clearAuthenticationAttributes(HttpServletRequest request) {

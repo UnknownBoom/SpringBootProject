@@ -17,3 +17,7 @@ nav{
     color: #d1ecf1;
     text-align: center;
 }
+
+.custom-down{
+    max-width: 90%;
+}

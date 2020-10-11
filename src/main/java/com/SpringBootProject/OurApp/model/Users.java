@@ -1,37 +1,41 @@
 package com.SpringBootProject.OurApp.model;
 
 
-import lombok.*;
-import org.hibernate.annotations.ManyToAny;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-public class Users implements UserDetails {
+public class Users implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "users_generator")
     @SequenceGenerator(name = "users_generator",sequenceName = "users_seq" ,allocationSize = 25,initialValue = 25)
     private Long id;
 
-    @NaturalId
+    private static final long serialVersionUID = 3486087007312642611L;
+
+    @NaturalId(mutable = true)
     @NotBlank(message = "Username cannot be empty")
     private String username;
 
-    @NaturalId
+    @NaturalId(mutable = true)
     @Column(name = "password")
-    @Pattern(regexp = "(?=^.{6,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",message = "Weak password *(Sorry)")
+//    @Pattern(regexp = "(?=^.{6,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",message = "Weak password *(Sorry)")
     @NotBlank(message = "Password cannot be empty")
     private String password;
 
@@ -51,9 +55,11 @@ public class Users implements UserDetails {
     private Set<Roles> roles;
 
 
-    @Lob
     @Column(nullable = true)
-    private byte[] photo  = null ;
+    private String photo_name;
+
+    @Transient
+    private List<Orders> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,5 +85,26 @@ public class Users implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return id.equals(users.id) &&
+                username.equals(users.username) &&
+                password.equals(users.password) &&
+                Objects.equals(surname, users.surname) &&
+                Objects.equals(first_name, users.first_name) &&
+                Objects.equals(patronymic, users.patronymic) &&
+                Objects.equals(roles, users.roles) &&
+                Objects.equals(photo_name, users.photo_name) &&
+                Objects.equals(orders, users.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, surname, first_name, patronymic, roles, photo_name, orders);
     }
 }
