@@ -6,6 +6,8 @@ import com.SpringBootProject.OurApp.repo.OrdersRepo;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +25,14 @@ public class MainController {
     @Autowired
     private OrdersRepo ordersRepo;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     public MainController(UsersRepo usersRepo) {
         this.usersRepo = usersRepo;
     }
+
 
     @GetMapping("/user_profile")
     public String profilePage(@AuthenticationPrincipal Users user, Model model){
@@ -51,7 +58,7 @@ public class MainController {
                            Model model){
 
         user_origin.setUsername(username);
-        if(password!=null && !password.isEmpty()) user_origin.setPassword(password);
+        if(password!=null && !password.isEmpty()) user_origin.setPassword(passwordEncoder.encode(password));
         user_origin.setFirst_name(first_name);
         user_origin.setSurname(surname);
         user_origin.setPatronymic(patronymic);
