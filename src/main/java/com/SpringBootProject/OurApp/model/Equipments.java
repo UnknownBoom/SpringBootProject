@@ -13,8 +13,6 @@ import java.util.Set;
 @Table(name = "equipments")
 public class Equipments {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Equipments_generator")
-    @SequenceGenerator(name = "Equipments_generator",sequenceName = "Equipments_seq" ,allocationSize = 25,initialValue = 25)
     private String mark;
 
     @ElementCollection(targetClass = Equipment_types.class, fetch = FetchType.EAGER)

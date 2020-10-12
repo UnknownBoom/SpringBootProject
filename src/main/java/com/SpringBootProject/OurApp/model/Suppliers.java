@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name="suppliers")
 public class Suppliers {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "suppliers_generator")
     @SequenceGenerator(name = "suppliers_generator",sequenceName = "suppliers_seq" ,allocationSize = 25,initialValue = 25)

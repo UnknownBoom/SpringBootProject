@@ -3,6 +3,7 @@ package com.SpringBootProject.OurApp.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NaturalId;
 import org.thymeleaf.expression.Ids;
 
 import javax.persistence.*;
@@ -14,15 +15,20 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Table(name="specification_unit")
-@IdClass(Specification_unit_Ids.class)
 public class Specification_unit implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "specification_unit_gen")
+    @SequenceGenerator(name = "specification_unit_gen",sequenceName = "specification_unit_seq" ,allocationSize = 25,initialValue = 25)
+    private Long id;
+
+
+    @NaturalId
     @ManyToOne
     @JoinColumn(name = "product_type_id")
-
     private Product_types product_type;
 
-    @Id
+    @NaturalId
     @ManyToOne
     @JoinColumn(name = "product_unit_id")
     private Product_types product_unit;

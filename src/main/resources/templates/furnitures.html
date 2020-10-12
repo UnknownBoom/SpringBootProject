@@ -25,7 +25,7 @@
     			</tr>
   			</thead>
   			<div class="container">
-  			<tbody>
+  			<th>
     			<tr>
 					<th:block th:each="furniture:${furnitures}">
 			    	<td th:text="${furniture.article}"></td>
@@ -37,15 +37,17 @@
 			    	<td th:text="${furniture.purchase_price}"></td>
 			    	<td th:text="${furniture.weight}"></td>
 			    	<td><a th:href="@{|/tables/furnitures/${furniture.article}|}" th:if="${furniture.image}">Photo</a></td>
+						<td><a href="#"></a></td>
 
-			    	<td><img src=""></td>
-			    	<td id="1"><div class="btn-group" role="group" aria-label="Basic example">
+			    	<td id="1">
+						<div class="btn-group" role="group" aria-label="Basic example">
 						  <button type="button" class="btn btn-secondary btn-ed-del" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
 						  <button type="button" class="btn btn-secondary btn-ed-del">Delete</button>
-						</div></td>	
+						</div>
+					</td>
+					</th:block>
    				</tr>
- 
-   				</tr>
+			</th>
   			</tbody>
   		</div>
 		</table>
@@ -55,7 +57,7 @@
 	</div>
 </div>
 
-	<script type="text/javascript" src="main_script.js"></script>
-
+<footer th:replace="fragments/main_fragment::footer">
+</footer>
 </body>
 </html>
