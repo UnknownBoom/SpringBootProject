@@ -51,6 +51,7 @@
 				<th:block th:each="spec_furn:${spec_furns}">
 					<tr>
 						<td th:text="${spec_furn.product_type.product_type_name}?:''"></td>
+						<td th:text="${spec_furn.furniture} ?:''"></td>
 						<td th:text="${spec_furn.amount} ?:''"></td>
 						<td><div class="btn-group" role="group" aria-label="Basic example">
 							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>

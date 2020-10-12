@@ -34,7 +34,7 @@
                     <a class="dropdown-item" th:href="@{/tables/suppliers}">Suppliers</a>
                     <a class="dropdown-item" sec:authorize="hasAnyAuthority('Manager','Master','Director','Deputy_director')" th:href="@{/tables/operations}">Operations</a>
                     <a class="dropdown-item" th:href="@{/tables/materials}">Materials</a>
-                    <a class="dropdown-item" th:href="@{/tables/Specification_furniture}">Specification_furniture</a>
+                    <a class="dropdown-item" sec:authorize="hasAnyAuthority('Manager','Master','Director','Deputy_director')" :href="@{/tables/Specification_furniture}">Specification_furniture</a>
                 </div>
         </ul>
         <form th:action="@{/login}" method="get" sec:authorize="!isAuthenticated()">

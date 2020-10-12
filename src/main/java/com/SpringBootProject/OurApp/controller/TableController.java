@@ -164,7 +164,7 @@ public class TableController {
         List<Specification_furniture> spec_furns = new ArrayList<>();
         if(id!=null && !id.isEmpty()){
             try{
-                Optional<Specification_furniture> byId = specification_furnitureRepo.findById( product_typesRepo.findById(Long.parseLong(id)).get());
+                Optional<Specification_furniture> byId = specification_furnitureRepo.findById(Long.parseLong(id));
                 if(byId.isPresent()){
                     spec_furns.add(byId.get());
                 }
