@@ -30,13 +30,10 @@ public class Users implements UserDetails, Serializable {
     private static final long serialVersionUID = 3486087007312642611L;
 
     @NaturalId(mutable = true)
-    @NotBlank(message = "Username cannot be empty")
     private String username;
 
     @NaturalId(mutable = true)
     @Column(name = "password")
-//    @Pattern(regexp = "(?=^.{6,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",message = "Weak password *(Sorry)")
-    @NotBlank(message = "Password cannot be empty")
     private String password;
 
 

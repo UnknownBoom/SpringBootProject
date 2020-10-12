@@ -1,9 +1,11 @@
 package com.SpringBootProject.OurApp.controller;
 
+import com.SpringBootProject.OurApp.Validator.UsersValidator;
 import com.SpringBootProject.OurApp.model.Users;
 import com.SpringBootProject.OurApp.model.dto.CaptchaResponse;
 import com.SpringBootProject.OurApp.service.UserService;
 import org.aspectj.bridge.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,9 +28,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/registration")
 public class RegistrationController {
 
+    @Autowired
     private UserService userService;
 
+    @Autowired
     private RestTemplate restTemplate;
+
 
     @Value("${recaptcha.secret}")
     private String recaptcha;
@@ -48,14 +53,10 @@ public class RegistrationController {
 
     @PostMapping
     public String saveUser(@RequestParam(name="g-recaptcha-response") String captcha,
-                            @Valid Users user,
-                           BindingResult bindingResult,
+                           Users user,
                            Model model){
-        System.out.println(captcha);
-        if (bindingResult.hasErrors()){
-            Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
-            model.addAttribute("errors",errors);
-            model.addAttribute("user",user);
+        UsersValidator.validate(user,model);
+        if (model.getAttribute("errors")!=null){
             return "registration";
         }else{
                 String url = String.format(captchaURL, recaptcha, captcha);

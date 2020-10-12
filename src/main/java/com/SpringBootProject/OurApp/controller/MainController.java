@@ -4,6 +4,7 @@ import com.SpringBootProject.OurApp.model.Orders;
 import com.SpringBootProject.OurApp.model.Users;
 import com.SpringBootProject.OurApp.repo.OrdersRepo;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
+import com.SpringBootProject.OurApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,6 +29,9 @@ public class MainController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    UserService userService;
+
 
     public MainController(UsersRepo usersRepo) {
         this.usersRepo = usersRepo;
@@ -50,19 +54,13 @@ public class MainController {
     @PostMapping("/profile_edit")
     public String editUser(@AuthenticationPrincipal Users user_origin,
                            @RequestParam Long id,
-                           @RequestParam() String username,
+                           @RequestParam String username,
                            @RequestParam(required = false) String password,
-                           @RequestParam() String first_name,
-                           @RequestParam() String surname,
-                           @RequestParam() String patronymic,
+                           @RequestParam String first_name,
+                           @RequestParam String surname,
+                           @RequestParam String patronymic,
                            Model model){
-
-        user_origin.setUsername(username);
-        if(password!=null && !password.isEmpty()) user_origin.setPassword(passwordEncoder.encode(password));
-        user_origin.setFirst_name(first_name);
-        user_origin.setSurname(surname);
-        user_origin.setPatronymic(patronymic);
-        usersRepo.save(user_origin);
+        userService.editUser(user_origin,id,username,password,first_name,surname,patronymic,model);
         return "redirect:/user_profile";
     }
 

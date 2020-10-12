@@ -12,8 +12,8 @@
     <div class="row">
         <div class="col-sm-3"><!--left col-->
             <div class="">
-                <img th:if="${user.photo_name}" th:src="@{|/img/${user.photo_name}|}" class="avatar img-circle img-thumbnail" alt="avatar" name="Image">
-                <form  th:action="@{/upload/users/}" method="post" enctype="multipart/form-data">
+                <img th:if="${user.photo_name}" th:src="@{|/img/${user.photo_name}|}" class="avatar img-circle img-thumbnail" alt="avatar" name="Image" >
+                <form  th:action="@{/upload/users/}" method="post" enctype="multipart/form-data" modelAttribute="user_image">
                 <h6 class="custom-font">Upload a different photo...</h6>
                 <input type="file"  name="file" class="custom-down"/>
                 <input type="submit" class="text-center file-upload mt-1">
@@ -27,7 +27,7 @@
                 <div class="tab-pane active" id="home">
                     <hr>
 
-                    <form class="form" th:action="@{/profile_edit/}" method="post" id="registrationForm">
+                    <form class="form" th:action="@{/profile_edit/}" method="post" id="registrationForm" >
                         <input type="hidden" th:value="${user.id}" class="form-control" name="id">
                         <input type="hidden" th:value="${user.photo_name}" class="form-control" name="photo_name">
                         <div class="form-group">

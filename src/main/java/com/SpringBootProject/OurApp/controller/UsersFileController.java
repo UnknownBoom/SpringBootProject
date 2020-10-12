@@ -1,10 +1,9 @@
 package com.SpringBootProject.OurApp.controller;
 
+import com.SpringBootProject.OurApp.Validator.ImageValidator;
 import com.SpringBootProject.OurApp.model.Users;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
 import com.SpringBootProject.OurApp.service.UsersFileService;
-import jdk.jfr.ContentType;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -33,14 +30,23 @@ public class UsersFileController {
     @Autowired
     private UsersFileService usersFileService;
 
+    @Autowired
+    private ImageValidator imageValidator;
+
     @Value("${upload_path_users}")
     private String upload_path;
 
 
+
+
     @PostMapping
-    public String HandleFileUpload(@AuthenticationPrincipal Users user,
-                                   @RequestParam MultipartFile file,
-                                   Model model) {
+    public  String HandleFileUpload(@AuthenticationPrincipal Users user,
+                                    @RequestParam MultipartFile file,
+                                    Model model) {
+        imageValidator.validate(file,model);
+        if(model.getAttribute("errors")!=null){
+            return "user_profile";
+        }
         Users byId = usersRepo.findUsersById(user.getId());
         try {
             usersFileService.saveFile(file,byId);
@@ -56,22 +62,7 @@ public class UsersFileController {
         return "user_profile";
     }
 
-//    @GetMapping("/{id}/{file_name}")
-//    public void getFile(@PathVariable Long id,
-//                        @PathVariable("file_name") String fileName,
-//                        HttpServletResponse response) throws IOException {
-//        InputStream photo_is = usersFileService.getFile(id, fileName);
-//        if(photo_is==null){
-//                throw new IOException("IOError open file to input stream");
-//            }
-//        try{
-//            IOUtils.copy(photo_is, response.getOutputStream());
-//            response.flushBuffer();
-//        }catch (IOException e){
-//            throw new IOException("IOError writing file to output stream");
-//        }
-//
-//    }
+
     @GetMapping("/{id}/{file_name}")
     @ResponseBody
     public ResponseEntity<InputStreamResource> getFile(@PathVariable Long id,
@@ -85,6 +76,7 @@ public class UsersFileController {
             return ResponseEntity.ok()
                     .contentLength(photo_is.available())
                     .contentType(MediaType.IMAGE_JPEG)
+                    .contentType(MediaType.IMAGE_PNG)
                     .body(new InputStreamResource(photo_is));
         }catch (IOException e){
             throw new IOException("IOError writing file to output stream");

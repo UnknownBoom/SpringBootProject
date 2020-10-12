@@ -1,5 +1,6 @@
 package com.SpringBootProject.OurApp.service;
 
+import com.SpringBootProject.OurApp.Validator.UsersValidator;
 import com.SpringBootProject.OurApp.model.Roles;
 import com.SpringBootProject.OurApp.model.Users;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Collections;
 
@@ -43,5 +45,28 @@ public class UserService implements UserDetailsService {
         }else{
             throw new UsernameNotFoundException("Username not found");
         }
+    }
+
+    public void editUser( Users user_origin,
+                           Long id,
+                           String username,
+                           String password,
+                           String first_name,
+                           String surname,
+                           String patronymic,
+                           Model model){
+        user_origin.setUsername(username);
+        if(password!=null && !password.isEmpty()){
+            if(UsersValidator.validatePassword(password)){
+                user_origin.setPassword(passwordEncoder.encode(password));
+            }else{
+                model.addAttribute("errors","weak password");
+                return ;
+            }
+        }
+        user_origin.setFirst_name(first_name);
+        user_origin.setSurname(surname);
+        user_origin.setPatronymic(patronymic);
+        usersRepo.save(user_origin);
     }
 }
