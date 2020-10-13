@@ -23,6 +23,7 @@ let btn_event_listener3 = function(e){
 			label3.innerText = thead_id;
 			let input3 = document.createElement('input');
 			input3.setAttribute('type','text');
+			input3.setAttribute('name',thead_id);
 			input3.className = "form-control";
 			input3.id = thead_id;
 			place3.appendChild(inner_place3);
@@ -52,6 +53,7 @@ let btn_event_listener1 = function(e){
 			label1.innerText = thead_id;
 			let input1 = document.createElement('input');
 			input1.setAttribute('type','text');
+			input1.setAttribute('name',thead_id);
 			input1.className = "form-control";
 			input1.id = thead_id;
 			if(i == 0){
