@@ -23,6 +23,7 @@ let btn_event_listener3 = function(e){
 			label3.innerText = thead_id;
 			let input3 = document.createElement('input');
 			input3.setAttribute('type','text');
+			input3.setAttribute('name',thead_id);
 			input3.className = "form-control";
 			input3.id = thead_id;
 			place3.appendChild(inner_place3);
@@ -43,20 +44,39 @@ let btn_event_listener1 = function(e){
 	if(add_allow){
 		for(let i = 0; i < theads.length; i++){
 			let thead_id = theads[i].innerText.toLowerCase();
+			
+			if(thead_id == "photo"){
+				let inner_place1 = document.createElement('div');
+                		inner_place1.className = 'form-group';
+                		let label1 = document.createElement('label');
+                		label1.className = "col-form-label";
+                		label1.setAttribute('for',thead_id);
+                		label1.innerText = thead_id;
+                		let input1 = document.createElement('input');
+                		input1.setAttribute('type','file');
+                		input1.className = "form-control";
+                		input1.setAttribute("name","thead_id");
+                		input1.id = thead_id;
+				if(i == 0){
+					input1.setAttribute('disabled','true');
+				} 
+			} else{
+				let inner_place1 = document.createElement('div');
+				inner_place1.className = 'form-group';
+				let label1 = document.createElement('label');
+				label1.className = "col-form-label";
+				label1.setAttribute('for',thead_id);
+				label1.innerText = thead_id;
+				let input1 = document.createElement('input');
+				input1.setAttribute('type','text');
+				input1.setAttribute('name',thead_id);
+				input1.className = "form-control";
+				input1.id = thead_id;
+				if(i == 0){
+					input1.setAttribute('disabled','true');
+				} 
+			}
 
-			let inner_place1 = document.createElement('div');
-			inner_place1.className = 'form-group';
-			let label1 = document.createElement('label');
-			label1.className = "col-form-label";
-			label1.setAttribute('for',thead_id);
-			label1.innerText = thead_id;
-			let input1 = document.createElement('input');
-			input1.setAttribute('type','text');
-			input1.className = "form-control";
-			input1.id = thead_id;
-			if(i == 0){
-				input1.setAttribute('disabled','true');
-			} 
 			console.log(row_elements[i]);
 			input1.value = row_elements[i].innerText;
 
