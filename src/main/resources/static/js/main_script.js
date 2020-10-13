@@ -57,7 +57,7 @@ let btn_event_listener1 = function(e){
 			input1.id = thead_id;
 			
 			if(thead_id == "photo"){
-                input1.setAttribute('type','file');
+                		input1.setAttribute('type','file');
 				if(i == 0){
 					input1.setAttribute('disabled','true');
 				} 
