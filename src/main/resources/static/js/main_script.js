@@ -57,6 +57,9 @@ let btn_event_listener1 = function(e){
                 		input1.className = "form-control";
                 		input1.setAttribute("name","thead_id");
                 		input1.id = thead_id;
+				if(i == 0){
+					input1.setAttribute('disabled','true');
+				} 
 			} else{
 				let inner_place1 = document.createElement('div');
 				inner_place1.className = 'form-group';
@@ -69,6 +72,9 @@ let btn_event_listener1 = function(e){
 				input1.setAttribute('name',thead_id);
 				input1.className = "form-control";
 				input1.id = thead_id;
+				if(i == 0){
+					input1.setAttribute('disabled','true');
+				} 
 			}
 
 			
