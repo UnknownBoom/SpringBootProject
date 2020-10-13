@@ -9,19 +9,27 @@ import java.util.HashMap;
 
 @Component
 public class ImageValidator{
-    public static void validate(MultipartFile uploadedFile, Model model) {
-        if(uploadedFile.isEmpty() || uploadedFile.getSize()==0)
-            model.addAttribute("imageError", "Please select a file");
+    public static boolean validate(MultipartFile uploadedFile, Model model) {
+        boolean isValid = true;
+        if(uploadedFile.isEmpty() || uploadedFile.getSize()==0){
+            if(model!=null)
+                model.addAttribute("imageError", "Please select a file");
+            isValid = false;
+        }
 //            model.addAttribute("errors",errors);
         if(!(uploadedFile.getContentType().toLowerCase().equals("image/jpg")
                 || uploadedFile.getContentType().toLowerCase().equals("image/jpeg")
                 || uploadedFile.getContentType().toLowerCase().equals("image/png"))){
-            model.addAttribute("imageError", "jpg/png file types are only supported");
-//            model.addAttribute("errors",errors);
+            if(model!=null)
+                model.addAttribute("imageError", "jpg/png file types are only supported");
+            isValid = false;
         }
         if(uploadedFile.getSize()>41681549){
-            model.addAttribute("imageError", "file is too long");
+            isValid = false;
+            if(model!=null)
+                model.addAttribute("imageError", "file is too long");
 //            model.addAttribute("errors",errors);
         }
+        return isValid;
     }
 }

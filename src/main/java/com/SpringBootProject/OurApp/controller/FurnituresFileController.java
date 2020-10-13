@@ -1,39 +1,47 @@
 package com.SpringBootProject.OurApp.controller;
 
 import com.SpringBootProject.OurApp.Validator.ImageValidator;
-import com.SpringBootProject.OurApp.model.Users;
+import com.SpringBootProject.OurApp.model.Furnitures;
 import com.SpringBootProject.OurApp.repo.FurnituresRepo;
+import org.apache.tomcat.util.http.fileupload.impl.InvalidContentTypeException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @RequestMapping("/upload/users")
 @Controller
 public class FurnituresFileController {
 
     @Autowired
-    FurnituresRepo furnituresRepo;
+    private FurnituresRepo furnituresRepo;
+    @Value("{upload_path}")
+    private String upload_path;
 
 
-//    @PostMapping()
-//    public  String HandleFileUpload(
-//            @RequestParam MultipartFile file,
-//                                    Model model) {
-//        ImageValidator.validate(file,model);
-//        if(model.getAttribute("imageError")!=null){
-//            return "redirect:/tables/furnitures";
-//        }
-//        furnituresRepo.save()
-//
-//        model.addAttribute("user",byId);
-//        return "redirect:/user_profile";
-//    }
+    public  void HandleFileUpload(Furnitures furnitures, MultipartFile file) throws IOException {
+        if(file!=null){
+            boolean validate = ImageValidator.validate(file, null);
+            if(!validate){
+                throw new InvalidContentTypeException();
+            }
+        }
+        File up_dir = new File(upload_path);
+        if(!up_dir.exists()){
+            if(!up_dir.mkdir()){
+                throw new IOException("Unable to create directory");
+            }
+        }
+        String uuid = UUID.randomUUID().toString();
+        String result_path =uuid +  file.getName();
+        furnitures.setImage_name(result_path);
+        file.transferTo(Paths.get(upload_path+"/furnitures/"+result_path));
+    }
 }

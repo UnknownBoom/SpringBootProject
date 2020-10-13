@@ -1,18 +1,23 @@
 package com.SpringBootProject.OurApp.controller;
 
+import com.SpringBootProject.OurApp.Validator.ImageValidator;
 import com.SpringBootProject.OurApp.Validator.UsersValidator;
 import com.SpringBootProject.OurApp.model.*;
 import com.SpringBootProject.OurApp.repo.*;
+import com.SpringBootProject.OurApp.service.FurnituresService;
 import com.SpringBootProject.OurApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 @Controller
@@ -45,6 +50,12 @@ public class TableController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FurnituresFileController furnituresFileController;
+
+    @Autowired
+    private FurnituresService furnituresService;
 
 
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
@@ -189,6 +200,27 @@ public class TableController {
     public String saveNewUser(Users user,Model model){
         userService.addUserFromTable(user,model);
         return "redirect:/tables/users";
+    }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @PostMapping("/furnitures")
+    public String saveFurniture(Furnitures furniture ,@RequestParam MultipartFile file, Model model){
+        try {
+            furnituresFileController.HandleFileUpload(furniture,file);
+        } catch (IOException e) {
+            return "redirect:/tables/furnitures";
+        }
+        furnituresService.saveFurniture(furniture);
+        return "redirect:/tables/furnitures";
+    }
+
+    @GetMapping("/furnitures/{article}/{image_name}")
+    public ResponseEntity<InputStreamResource> getFurnitureImage(@PathVariable String article, String image_name, Model model) throws IOException {
+        InputStream inputStream = furnituresService.getFile(article, image_name);
+        return ResponseEntity.ok()
+                .contentLength(inputStream.available())
+                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.IMAGE_PNG)
+                .body(new InputStreamResource(inputStream));
     }
 
 
