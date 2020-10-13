@@ -8,21 +8,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UsersValidator {
-    public static void validate(Users user, Model model) {
+    public static boolean validate(Users user, Model model) {
         Map<String, String> errors = new HashMap<>();
+        boolean isValid = true;
 
         if(user.getPassword()==null || user.getPassword().isEmpty()
         || !user.getPassword().trim().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,18}$") ){
             errors.put("passwordError","6-18 length & contains (#?!@$%^&*-)&[A-Z]&[a-z]");
+            isValid = false;
         }else{
 
         }
         if(user.getUsername()==null || user.getUsername().isEmpty()){
             errors.put("usernameError","Please select username");
+            isValid = false;
         }
         if(!errors.keySet().isEmpty()){
             model.addAttribute("errors", errors);
+            isValid = false;
         }
+        return isValid;
 
     }
     public static boolean validatePassword(String password) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/main_fragment :: header ('Users')")>
 </head>
 <body  class="bg-body">
@@ -84,7 +84,7 @@
 </th:block>
 
 <div class="bg-dark custom-layout mt-2 mx-auto">
-    <div><h2 class="mx-auto custom-font">Materials</h2></div>
+    <div><h2 class="mx-auto custom-font">Users</h2></div>
     <div>
 
         <div class="scroll-table" id="main-table">
@@ -112,7 +112,7 @@
                             <td th:text="${user.patronymic}?:''"></td>
                             <td th:text="${user.username}?:''"></td>
                             <td th:text="${user.roles}?:''"></td>
-                            <td><a th:href ="@{|/upload/users/${user.id}/${user.photo_name}|}"th:if="${user.photo_name}">Photo</a></td>
+                            <td><a target="_blank" th:href ="@{|/upload/users/${user.id}/${user.photo_name}|}"th:if="${user.photo_name}">Photo</a></td>
 
                             <td><div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal1" data-whatever="@mdo">Edit</button>
@@ -134,8 +134,7 @@
 <div class="bg-dark custom-layout mt-2 mx-auto">
     <div><h2 class="mx-auto custom-font">Materials</h2></div>
     <div>
-
-        <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal3" data-whatever="@mdo">Add new row</button>
+        <button sec:authorize="hasAnyAuthority('Manager','Master','Director','Deputy_director')" type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal3" data-whatever="@mdo">Add new row</button>
     </div>
 </div>
 

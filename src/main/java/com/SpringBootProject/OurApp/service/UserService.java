@@ -32,6 +32,7 @@ public class UserService implements UserDetailsService {
     private OrdersRepo ordersRepo;
 
 
+
     public boolean addUser(Users user){
         Users user_db = usersRepo.findByUsername(user.getUsername());
         if(user_db!=null){
@@ -87,5 +88,16 @@ public class UserService implements UserDetailsService {
         Iterable<Orders> orders_list = ordersRepo.findOrdersByUser_idList(byId.getId());
         byId.setOrders((List<Orders>) orders_list);
         return byId;
+    }
+
+    public boolean addUserFromTable(Users user,Model model) {
+        if(UsersValidator.validate(user,model)){
+            return false;
+        }
+        if(usersRepo.findByUsername(user.getUsername())==null){
+            return false;
+        }
+        usersRepo.save(user);
+        return true;
     }
 }

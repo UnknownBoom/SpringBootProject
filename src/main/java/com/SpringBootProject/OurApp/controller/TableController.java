@@ -1,12 +1,15 @@
 package com.SpringBootProject.OurApp.controller;
 
+import com.SpringBootProject.OurApp.Validator.UsersValidator;
 import com.SpringBootProject.OurApp.model.*;
 import com.SpringBootProject.OurApp.repo.*;
+import com.SpringBootProject.OurApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,6 +42,10 @@ public class TableController {
 
     @Autowired
     private Product_typesRepo product_typesRepo;
+
+    @Autowired
+    private UserService userService;
+
 
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @GetMapping("/orders")
@@ -176,6 +183,12 @@ public class TableController {
         }
         model.addAttribute("spec_furns",spec_furns);
         return "spec_furn";
+    }
+
+    @PostMapping
+    public String saveNewUser(Users user,Model model){
+        userService.addUserFromTable(user,model);
+        return "redirect:/tables/users";
     }
 
 

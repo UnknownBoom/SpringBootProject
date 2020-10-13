@@ -46,7 +46,7 @@ public class UsersFileController {
                                     Model model) {
         imageValidator.validate(file,model);
         if(model.getAttribute("imageError")!=null){
-            model.addAttribute("user",user);
+            model.addAttribute("user",usersRepo.findUsersById(user.getId()));
             return "user_profile";
         }
         Users byId = usersRepo.findUsersById(user.getId());
