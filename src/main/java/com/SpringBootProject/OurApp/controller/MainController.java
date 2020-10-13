@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping()
@@ -59,7 +60,8 @@ public class MainController {
                            @RequestParam String patronymic,
                            Model model){
         userService.editUser(user_origin,id,username,password,first_name,surname,patronymic,model);
-        return "redirect:/user_profile";
+        model.addAttribute("user",usersRepo.findUsersById(user_origin.getId()));
+        return "user_profile";
     }
 
 }

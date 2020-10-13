@@ -4,6 +4,7 @@ import com.SpringBootProject.OurApp.Validator.ImageValidator;
 import com.SpringBootProject.OurApp.model.Users;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
 import com.SpringBootProject.OurApp.service.UsersFileService;
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -44,9 +45,9 @@ public class UsersFileController {
                                     @RequestParam MultipartFile file,
                                     Model model) {
         imageValidator.validate(file,model);
-        if(model.getAttribute("errors")!=null){
+        if(model.getAttribute("imageError")!=null){
             model.addAttribute("user",user);
-            return "redirect:/user_profile";
+            return "user_profile";
         }
         Users byId = usersRepo.findUsersById(user.getId());
         try {
@@ -54,13 +55,13 @@ public class UsersFileController {
         } catch (SQLException throwables) {
             byId = usersRepo.findUsersById(user.getId());
             System.out.println(throwables);
-            model.addAttribute("errors",throwables.getMessage());
+            model.addAttribute("imageError",throwables.getMessage());
         }catch (IOException e){
-            model.addAttribute("errors","System error");
+            model.addAttribute("imageError","System error");
             System.out.println(e.getMessage());
         }
         model.addAttribute("user",byId);
-        return "user_profile";
+        return "redirect:/user_profile";
     }
 
 
@@ -83,6 +84,11 @@ public class UsersFileController {
             throw new IOException("IOError writing file to output stream");
         }
 
+    }
+
+    @ExceptionHandler(SizeLimitExceededException.class)
+    public String handleStorageFileNotFound(SizeLimitExceededException exc) {
+        return "redirect:/user_profile";
     }
 
 

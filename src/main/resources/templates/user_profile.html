@@ -16,7 +16,11 @@
                 <form  th:action="@{/upload/users/}" method="post" enctype="multipart/form-data" modelAttribute="user_image">
                 <h6 class="custom-font">Upload a different photo...</h6>
                 <input type="file"  name="file" class="custom-down"/>
-                <input type="submit" class="text-center file-upload mt-1">
+                <input type="submit" class="text-center file-upload mt-1"
+                       th:classappend="${imageError!=null?'is-invalid':''}">
+                    <div class="invalid-feedback" th:if="${imageError!=null}">
+                        <div class="alert alert-danger" th:text="${imageError}" ></div>
+                    </div>
                 </form>
             </div>
             </hr>
@@ -33,13 +37,21 @@
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label ><h4>Username</h4></label>
-                                <input type="text" th:value="${user.username}?:''" class="form-control" name="username" placeholder="first name" title="enter your first name if any.">
+                                <input type="text" th:value="${user.username}?:''" class="form-control" name="username" placeholder="first name" title="enter your first name if any."
+                                       th:classappend="${usernameError!=null?'is-invalid':''}">
+                                <div class="invalid-feedback" th:if="${usernameError!=null}">
+                                    <div class="alert alert-danger" th:text="${usernameError}" ></div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label><h4>Password</h4></label>
-                                <input type="text" class="form-control" name="password" placeholder="password" title="enter your first name if any.">
+                                <input type="text" class="form-control" name="password" placeholder="password" title="enter your first name if any."
+                                       th:classappend="${passwordError!=null?'is-invalid':''}">
+                                <div class="invalid-feedback" th:if="${passwordError!=null}">
+                                    <div class="alert alert-danger" th:text="${passwordError}" ></div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

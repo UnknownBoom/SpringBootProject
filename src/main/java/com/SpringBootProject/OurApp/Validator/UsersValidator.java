@@ -29,4 +29,8 @@ public class UsersValidator {
         return password != null && !password.isEmpty()
                 && password.trim().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,18}$");
     }
+
+    public static boolean validateUsername(String username) {
+        return username != null && !username.isEmpty();
+    }
 }

@@ -61,15 +61,21 @@ public class UserService implements UserDetailsService {
                            String surname,
                            String patronymic,
                            Model model){
-        user_origin.setUsername(username);
+
         if(password!=null && !password.isEmpty()){
             if(UsersValidator.validatePassword(password)){
                 user_origin.setPassword(passwordEncoder.encode(password));
             }else{
-                model.addAttribute("errors","weak password");
+                model.addAttribute("passwordError","weak password");
                 return ;
             }
         }
+            if(UsersValidator.validateUsername(username)){
+                user_origin.setUsername(username);
+            }else{
+                model.addAttribute("usernameError","username can not be empty");
+                return ;
+            }
         user_origin.setFirst_name(first_name);
         user_origin.setSurname(surname);
         user_origin.setPatronymic(patronymic);
