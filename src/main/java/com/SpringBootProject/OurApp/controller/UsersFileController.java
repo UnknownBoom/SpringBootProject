@@ -31,9 +31,6 @@ public class UsersFileController {
     @Autowired
     private UsersFileService usersFileService;
 
-    @Autowired
-    private ImageValidator imageValidator;
-
     @Value("${upload_path_users}")
     private String upload_path;
 
@@ -44,7 +41,7 @@ public class UsersFileController {
     public  String HandleFileUpload(@AuthenticationPrincipal Users user,
                                     @RequestParam MultipartFile file,
                                     Model model) {
-        imageValidator.validate(file,model);
+        ImageValidator.validate(file,model);
         if(model.getAttribute("imageError")!=null){
             model.addAttribute("user",usersRepo.findUsersById(user.getId()));
             return "user_profile";
@@ -86,7 +83,7 @@ public class UsersFileController {
 
     }
 
-    @ExceptionHandler(SizeLimitExceededException.class)
+    @ExceptionHandler({SizeLimitExceededException.class, javax.naming.SizeLimitExceededException.class})
     public String handleStorageFileNotFound(SizeLimitExceededException exc) {
         return "redirect:/user_profile";
     }

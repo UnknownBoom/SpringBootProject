@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-    @Value("${upload_path_users}")
+    @Value("${upload_path}")
     String upload_path;
 
     @Override
