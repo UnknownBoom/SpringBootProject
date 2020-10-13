@@ -75,3 +75,4 @@ for(let i = 0; i < add_buttons.length; i++){
 	add_buttons[i].addEventListener("click", btn_event_listener3);
 	console.log(add_buttons);
 }
+//proiv
