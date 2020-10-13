@@ -40,10 +40,8 @@ public class MainController {
 
     @GetMapping("/user_profile")
     public String profilePage(@AuthenticationPrincipal Users user, Model model){
-        Users buId = usersRepo.findUsersById(user.getId());
-        Iterable<Orders> orders_list = ordersRepo.findOrdersByUser_idList(buId.getId());
-        buId.setOrders((List<Orders>) orders_list);
-        model.addAttribute("user",buId);
+        Users userWithOrders = userService.getUserWithOrders(user);
+        model.addAttribute("user",userWithOrders);
         return "user_profile";
     }
     @GetMapping("/")

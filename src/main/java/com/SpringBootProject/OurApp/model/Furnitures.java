@@ -41,7 +41,6 @@ public class Furnitures {
     @Column(nullable = false)
     private Integer weight;
 
-    @Lob
     @Column(nullable = true)
-    private byte[] image =null;
+    private String image_name;
 }

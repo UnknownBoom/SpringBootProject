@@ -16,5 +16,8 @@ public class ImageValidator{
                 || uploadedFile.getContentType().toLowerCase().equals("image/png"))){
             model.addAttribute("errors", "jpg/png file types are only supported");
         }
+        if(uploadedFile.getSize()>41681549){
+            model.addAttribute("errors", "file is too long");
+        }
     }
 }

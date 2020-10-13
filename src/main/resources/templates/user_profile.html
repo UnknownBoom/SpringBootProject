@@ -7,7 +7,7 @@
 <th:block th:replace="fragments/main_fragment::navbar"></th:block>
 <div class="container bootstrap snippet custom-layout bg-dark mt-2">
     <div class="row mt-3 mb-2">
-        <div class="mx-auto"><h2 class="mx-auto custom-font" th:text="${user.username}">Orders</h2></div>
+        <div class="mx-auto"><h2 class="mx-auto custom-font" th:text="${user.username}?:'Null'">Orders</h2></div>
     </div>
     <div class="row">
         <div class="col-sm-3"><!--left col-->
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label ><h4>Username</h4></label>
-                                <input type="text" th:value="${user.username}" class="form-control" name="username" placeholder="first name" title="enter your first name if any.">
+                                <input type="text" th:value="${user.username}?:''" class="form-control" name="username" placeholder="first name" title="enter your first name if any.">
                             </div>
                         </div>
                         <div class="form-group">

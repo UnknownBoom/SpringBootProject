@@ -1,29 +1,35 @@
 package com.SpringBootProject.OurApp.service;
 
 import com.SpringBootProject.OurApp.Validator.UsersValidator;
+import com.SpringBootProject.OurApp.model.Orders;
 import com.SpringBootProject.OurApp.model.Roles;
 import com.SpringBootProject.OurApp.model.Users;
+import com.SpringBootProject.OurApp.repo.OrdersRepo;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
 
+    @Autowired
     private UsersRepo usersRepo;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UsersRepo usersRepo, PasswordEncoder passwordEncoder) {
-        this.usersRepo = usersRepo;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private OrdersRepo ordersRepo;
 
 
     public boolean addUser(Users user){
@@ -68,5 +74,12 @@ public class UserService implements UserDetailsService {
         user_origin.setSurname(surname);
         user_origin.setPatronymic(patronymic);
         usersRepo.save(user_origin);
+    }
+
+    public Users getUserWithOrders(@AuthenticationPrincipal Users user){
+        Users byId = usersRepo.findUsersById(user.getId());
+        Iterable<Orders> orders_list = ordersRepo.findOrdersByUser_idList(byId.getId());
+        byId.setOrders((List<Orders>) orders_list);
+        return byId;
     }
 }
