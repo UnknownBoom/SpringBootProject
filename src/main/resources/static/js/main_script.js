@@ -77,10 +77,6 @@ let btn_event_listener1 = function(e){
 				} 
 			}
 
-			
-			if(i == 0){
-				input1.setAttribute('disabled','true');
-			} 
 			console.log(row_elements[i]);
 			input1.value = row_elements[i].innerText;
 
