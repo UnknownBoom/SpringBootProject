@@ -21,7 +21,7 @@ public class Orders implements Serializable {
 
      @Column(nullable = false)
      private Date order_date;
-
+     @Column(unique = true)
      private String order_name;
 
      @ManyToOne
@@ -43,6 +43,5 @@ public class Orders implements Serializable {
      private Date planed_date_end =null;
 
      @Column(nullable = true)
-     @Lob
-     private byte[] order_schemes =null;
+     private String order_scheme_name =null;
 }

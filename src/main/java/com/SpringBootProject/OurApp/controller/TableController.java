@@ -5,6 +5,7 @@ import com.SpringBootProject.OurApp.Validator.UsersValidator;
 import com.SpringBootProject.OurApp.model.*;
 import com.SpringBootProject.OurApp.repo.*;
 import com.SpringBootProject.OurApp.service.FurnituresService;
+import com.SpringBootProject.OurApp.service.OrdersService;
 import com.SpringBootProject.OurApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -56,6 +58,9 @@ public class TableController {
 
     @Autowired
     private FurnituresService furnituresService;
+
+    @Autowired
+    private OrdersService ordersService;
 
 
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
@@ -196,11 +201,8 @@ public class TableController {
         return "spec_furn";
     }
 
-    @PostMapping
-    public String saveNewUser(Users user,Model model){
-        userService.addUserFromTable(user,model);
-        return "redirect:/tables/users";
-    }
+
+
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @PostMapping("/furnitures")
     public String saveFurniture(Furnitures furniture ,@RequestParam MultipartFile file, Model model){
@@ -222,6 +224,59 @@ public class TableController {
                 .contentType(MediaType.IMAGE_PNG)
                 .body(new InputStreamResource(inputStream));
     }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @PostMapping("/users/add")
+    public String saveNewUser(Users user,@RequestParam(required = false) MultipartFile file, Model model){
+        userService.addUserFromTable(user,file);
+        return "redirect:/tables/users";
+    }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @PostMapping("users/edit")
+    public String editUser(Users user,@RequestParam(required = false) MultipartFile file, Model model){
+        userService.editUserFromTable(user,file);
+        return "redirect:/tables/users";
+    }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @PostMapping("users/delete")
+    public String deleteUser(Users user, Model model){
+        userService.deleteUser(user);
+        return "redirect:/tables/users";
+    }
 
+    @PostMapping("/orders/add")
+    public String saveNewOrder(Orders order,@RequestParam(required = false,name = "schemas") MultipartFile file, Model model) throws IOException {
+        ordersService.addOrder(order,file);
+        return "redirect:/tables/orders";
+    }
+
+    @PostMapping("orders/edit")
+    public String editOrder(Orders order,@RequestParam(required = false,name = "schemas") MultipartFile file, Model model){
+        ordersService.editOrder(order,file);
+        return "redirect:/tables/orders";
+    }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @PostMapping("orders/delete")
+    public String deleteOrder(Orders order, Model model){
+        ordersService.deleteOrders(order);
+        return "redirect:/tables/orders";
+    }
+    @ResponseBody
+    @GetMapping("orders/{id}/{file_name}")
+    public ResponseEntity<InputStreamResource> getFile(@PathVariable("file_name") String fileName,
+                                                       HttpServletResponse response, @PathVariable Long id) throws IOException {
+        InputStream photo_is = ordersService.getFile(id, fileName);
+        if(photo_is==null){
+            throw new IOException("IOError open file to input stream");
+        }
+        try{
+            return ResponseEntity.ok()
+                    .contentLength(photo_is.available())
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(new InputStreamResource(photo_is));
+        }catch (IOException e){
+            throw new IOException("IOError writing file to output stream");
+        }
+    }
 
 }

@@ -30,5 +30,5 @@ public class Specification_materials implements Serializable {
     private Materials material;
 
     @Column(nullable = false)
-    private BigDecimal amount;
+    private Integer amount;
 }

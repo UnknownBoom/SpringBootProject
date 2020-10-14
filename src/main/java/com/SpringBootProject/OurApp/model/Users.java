@@ -30,6 +30,7 @@ public class Users implements UserDetails, Serializable {
     private static final long serialVersionUID = 3486087007312642611L;
 
     @NaturalId(mutable = true)
+    @Column(unique = true)
     private String username;
 
     @NaturalId(mutable = true)

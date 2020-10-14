@@ -1,6 +1,5 @@
 package com.SpringBootProject.OurApp.repo;
 
-import com.SpringBootProject.OurApp.model.Specification_furniture;
 import com.SpringBootProject.OurApp.model.Specification_unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 

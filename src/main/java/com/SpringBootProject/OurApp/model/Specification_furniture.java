@@ -31,6 +31,6 @@ public class Specification_furniture implements Serializable {
     private Furniture_types furniture;
 
     @Column(nullable = false)
-    private Long amount;
+    private Integer amount;
 
 }

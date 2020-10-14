@@ -1,5 +1,6 @@
 package com.SpringBootProject.OurApp.service;
 
+import com.SpringBootProject.OurApp.Validator.ImageValidator;
 import com.SpringBootProject.OurApp.Validator.UsersValidator;
 import com.SpringBootProject.OurApp.model.Orders;
 import com.SpringBootProject.OurApp.model.Roles;
@@ -15,7 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +34,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private OrdersRepo ordersRepo;
+
+    @Autowired
+    private   UsersFileService usersFileService;
 
 
 
@@ -90,8 +97,14 @@ public class UserService implements UserDetailsService {
         return byId;
     }
 
-    public boolean addUserFromTable(Users user,Model model) {
-        if(UsersValidator.validate(user,model)){
+    public boolean addUserFromTable(Users user, MultipartFile file) {
+        if(file!=null){
+            if(!ImageValidator.validate(file,null)){
+                return false;
+            }
+        }
+
+        if(UsersValidator.validate(user,null)){
             return false;
         }
         if(usersRepo.findByUsername(user.getUsername())==null){
@@ -99,5 +112,26 @@ public class UserService implements UserDetailsService {
         }
         usersRepo.save(user);
         return true;
+    }
+
+    public boolean editUserFromTable(Users user, MultipartFile file) {
+        try {
+            Users users = usersFileService.saveFile(file, user);
+            saveUser(users);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public void saveUser(Users user){
+        usersRepo.save(user);
+    }
+
+    public void deleteUser(Users user) {
+        usersRepo.delete(user);
     }
 }

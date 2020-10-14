@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/login","/registration","/registration_login/**","/images/**", "/bootstrap/**","/fragments/**","/css/**").permitAll()
+                .antMatchers("/","/login","/registration","/images/**", "/bootstrap/**","/fragments/**","/css/**").permitAll()
                 .anyRequest().authenticated();
         http
                 .formLogin()
@@ -66,9 +66,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return new MessageDigestPasswordEncoder("MD5");
     }
-
-
-
-
 
 }

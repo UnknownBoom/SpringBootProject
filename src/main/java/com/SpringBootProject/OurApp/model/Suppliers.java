@@ -19,6 +19,7 @@ public class Suppliers {
     private Long supplier_id;
 
     @NaturalId
+    @Column(name = "supplier_name")
     private String supplier_name;
 
 

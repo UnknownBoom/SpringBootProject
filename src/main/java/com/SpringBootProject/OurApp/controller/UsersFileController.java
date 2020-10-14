@@ -3,6 +3,7 @@ package com.SpringBootProject.OurApp.controller;
 import com.SpringBootProject.OurApp.Validator.ImageValidator;
 import com.SpringBootProject.OurApp.model.Users;
 import com.SpringBootProject.OurApp.repo.UsersRepo;
+import com.SpringBootProject.OurApp.service.UserService;
 import com.SpringBootProject.OurApp.service.UsersFileService;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class UsersFileController {
     @Value("${upload_path_users}")
     private String upload_path;
 
+    @Autowired
+    private UserService userService;
+
 
 
 
@@ -48,7 +52,8 @@ public class UsersFileController {
         }
         Users byId = usersRepo.findUsersById(user.getId());
         try {
-            usersFileService.saveFile(file,byId);
+            Users user_with_photo = usersFileService.saveFile(file, byId);
+            userService.saveUser(user_with_photo);
         } catch (SQLException throwables) {
             byId = usersRepo.findUsersById(user.getId());
             System.out.println(throwables);

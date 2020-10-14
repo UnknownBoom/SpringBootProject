@@ -20,11 +20,14 @@ public class UsersFileService {
     @Autowired
     private UsersRepo usersRepo;
 
+    @Autowired
+    private UserService userService;
 
-    @Value("${upload_path}")
+
+    @Value("${upload_path_users}")
     private String upload_path;
 
-    public void saveFile(MultipartFile file,Users user) throws IOException, SQLException {
+    public Users saveFile(MultipartFile file,Users user) throws IOException, SQLException {
         if(file!=null){
             File up_dir = new File(upload_path);
             if(!up_dir.exists()){
@@ -36,11 +39,9 @@ public class UsersFileService {
             String result_photo_name = uuid+"."+file.getOriginalFilename();
             user.setPhoto_name(result_photo_name);
             file.transferTo(Paths.get(upload_path+result_photo_name));
-            usersRepo.save(user);
-            if(!usersRepo.findUsersById(user.getId()).getPhoto_name().equals(result_photo_name)){
-                    throw new SQLException("Unable to save photo_name");
-            }
+            return user;
         }
+        return null;
     }
 
 
