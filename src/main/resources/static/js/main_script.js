@@ -12,16 +12,17 @@ let place3 = document.getElementById('placeElem3');
 
 let btn_event_listener3 = function(e){
 	if(add_allow3){
-		for(let i = 0; i < theads.length; i++){
+		for(let i = 1; i < theads.length; i++){
 			let thead_id = theads[i].innerText.toLowerCase();
 
 			let inner_place3 = document.createElement('div');
+
 			inner_place3.className = 'form-group';
-			let label3 = document.createElement('label');
+            let label3 = document.createElement('label');
 			label3.className = "col-form-label";
 			label3.setAttribute('for',thead_id);
 			label3.innerText = thead_id;
-			let input3 = document.createElement('input');
+            let input3 = document.createElement('input');
 			input3.setAttribute('type','text');
 			input3.setAttribute('name',thead_id);
 			input3.className = "form-control";

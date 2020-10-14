@@ -5,7 +5,7 @@
 
 nav{
     opacity: .9;
-    z-index: 999999;
+    z-index: 1;
 }
 .custom-layout{
     min-height: 100vh;
