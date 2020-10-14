@@ -38,7 +38,7 @@ let del_event_listner = function(e){
 
 let roles_event_listener3 = function(e) {
     let input3 = document.querySelectorAll("input#rolesData3");
-    let value = $("#rolesSelect1 option:selected").val().toLowerCase();
+    let value = $("#rolesSelect3 option:selected").val().toLowerCase();
     input3.setAttribute("value",value);
     //input3.value = $("#rolesSelect3 option:selected").val().toLowerCase();
     console.log(input3);
