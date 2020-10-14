@@ -25,6 +25,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("file:/"+upload_path+"/");
     }
+
     @Bean
     public RestTemplate restTemplate(){
         return new RestTemplate();

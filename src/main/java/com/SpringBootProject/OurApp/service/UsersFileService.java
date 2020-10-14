@@ -35,7 +35,7 @@ public class UsersFileService {
             String uuid = UUID.randomUUID().toString();
             String result_photo_name = uuid+"."+file.getOriginalFilename();
             user.setPhoto_name(result_photo_name);
-            file.transferTo(Paths.get(upload_path+"/users/"+result_photo_name));
+            file.transferTo(Paths.get(upload_path+result_photo_name));
             usersRepo.save(user);
             if(!usersRepo.findUsersById(user.getId()).getPhoto_name().equals(result_photo_name)){
                     throw new SQLException("Unable to save photo_name");
@@ -47,7 +47,7 @@ public class UsersFileService {
     public InputStream getFile(Long id, String fileName) throws IOException {
         InputStream is;
         try {
-            is = new BufferedInputStream(new FileInputStream(upload_path+"/users/"+fileName));
+            is = new BufferedInputStream(new FileInputStream(upload_path+fileName));
         } catch (IOException ex) {
             return null;
         }
