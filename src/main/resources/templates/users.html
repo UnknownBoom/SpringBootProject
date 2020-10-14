@@ -36,13 +36,7 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="roles">
                                 Role
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Master</a>
-                                <a class="dropdown-item" href="#">Customer</a>
-                                <a class="dropdown-item" href="#">Director</a>
-                                <a class="dropdown-item" href="#">Deputy director</a>
-                                <a class="dropdown-item" href="#">Manager</a>
-                            </div>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -110,18 +104,17 @@
                         <input id="username3" type="text" class="form-control" name="username">
                     </div>
                     <div class="form-group">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="roles">
-                                Role
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Master</a>
-                                <a class="dropdown-item" href="#">Customer</a>
-                                <a class="dropdown-item" href="#">Director</a>
-                                <a class="dropdown-item" href="#">Deputy director</a>
-                                <a class="dropdown-item" href="#">Manager</a>
-                            </div>
+                        <select id="rolesSelect">
+                            <option id="master" class="roles">Master</option>
+                            <option id="customer" class="roles">Customer</option>
+                            <option id="director" class="roles">Director</option>
+                            <option id="deputy_director" class="roles">Deputy Director</option>
+                            <option id="manager" class="roles">Manager</option>
+                        </select>
+                        <div id="roles">
+                            <input id="rolesData" type="text"class="textfield"/>
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label for="photo3" class="col-form-label">photo</label>
