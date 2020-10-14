@@ -14,26 +14,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="placeElem1" th:action="@{/tables/users/edit}" method="post" enctype="multipart/form-data">
+                <form id="placeElem1" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <span class="tinput"></span>
+                    </div>
+
                     <div class="form-group">
                         <label for="first_name1" class="col-form-label">first_name</label>
-                        <input id="first_name1" type="text" class="form-control" name="first_name">
+                        <input id="first_name1" type="text" class="form-control tinput" name="first_name">
                     </div>
                     <div class="form-group">
                         <label for="surname1" class="col-form-label">surname</label>
-                        <input id="surname1" type="text" class="form-control" name="surname">
+                        <input id="surname1" type="text" class="form-control tinput" name="surname">
                     </div>
                     <div class="form-group">
                         <label for="patronymic1" class="col-form-label">patronymic</label>
-                        <input id="patronymic1" type="text" class="form-control" name="patronymic">
+                        <input id="patronymic1" type="text" class="form-control tinput" name="patronymic">
                     </div>
                     <div class="form-group">
                         <label for="username1" class="col-form-label">username</label>
-                        <input id="username1" type="text" class="form-control" name="username">
+                        <input id="username1" type="text" class="form-control tinput" name="username">
                     </div>
                     <div class="form-group">
                         <label for="password1" class="col-form-label">password</label>
-                        <input id="password1" type="text" class="form-control" name="password">
+                        <input id="password1" type="text" class="form-control tinput" name="password">
                     </div>
                     <div class="form-group">
                         <select name="role">
@@ -56,8 +60,8 @@
             </div>
 
         </div>
+        </div>
     </div>
-</div>
 </div>
 
 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -92,7 +96,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="placeElem3" method="post" th:action="@{/tables/users/add}" enctype="multipart/form-data">
+                <form id="placeElem3" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="first_name3" class="col-form-label">first_name</label>
                         <input id="first_name3" type="text" class="form-control" name="first_name">
@@ -157,8 +161,8 @@
                     <div><th scope="col" class="tmark">Patronymic</th></div>
                     <div><th scope="col" class="tmark">username</th></div>
                     <div><th scope="col" class="tmark">password</th></div>
-                    <div><th scope="col" class="tmark">Roles</th></div>
-                    <div><th scope="col" class="tmark">Photo</th></div>
+                    <div><th scope="col">Roles</th></div>
+                    <div><th scope="col">Photo</th></div>
                     <div><th scope="col">Action</th></div>
 
                 </tr>
@@ -185,10 +189,10 @@
                     </tbody>
                 </div>
             </table>
-            <form action="#">
-                <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal3" data-whatever="@mdo">Add</button>
-            </form>
         </div>
+        <form action="#">
+            <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal3" data-whatever="@mdo">Add new row</button>
+        </form>
     </div>
 </div>
 </div>

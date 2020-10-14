@@ -1,25 +1,36 @@
-let selects1 = document.querySelectorAll("select#rolesSelect1");
-let selects3 = document.querySelectorAll("select#rolesSelect3");
-
 let delete_buttons = document.querySelectorAll('.btn-del');
+let edit_buttons = document.querySelectorAll('.btn-ed');
+let inputs = document.querySelectorAll('#placeElem1 .tinput')
+
+console.log(edit_buttons);
+
+let ed_event_listener = function(e){
+    let theads = document.querySelectorAll('.tmark');
+    let tr = e.target.parentElement.parentElement.parentElement;
+    let tds = [];
+    let values = [];
+    for(let i = 1; i < theads.length; i++){
+        if(theads[i].innerText.toLowerCase() != 'photo' && theads[i].innerText.toLowerCase() != 'roles'){
+            tds[i] = tr.querySelectorAll('td')[i];
+            values[i] = tds[i].innerText;
+            console.log(values[i]);
+
+            if(values[i]){
+                inputs[i].value = values[i];
+                console.log(inputs[i]);
+            }
+
+        }
 
 
-console.log(selects1);
-console.log(selects3);
+    }
+    console.log(values);
+    console.log(tr);
 
 
-let roles_event_listener1 = function(e) {
-    let input1 = document.querySelectorAll("input#rolesData1");
-    let value = $("#rolesSelect1 option:selected").val().toLowerCase();
-    input1.setAttribute("value",value);
-    //input1.value = $("#rolesSelect1 option:selected").val().toLowerCase();
-    console.log(input1);
-    console.log(input1.value);
+}
 
-
-};
-
-let del_event_listner = function(e){
+let del_event_listener = function(e){
     let tr = e.target.parentElement.parentElement.parentElement;
     console.log(tr, arguments);
     console.log(tr.querySelectorAll('td')[0].innerText);
@@ -35,26 +46,11 @@ let del_event_listner = function(e){
 
     place.insertBefore(input, next_sibling);
 }
-
-let roles_event_listener3 = function(e) {
-    let input3 = document.querySelectorAll("input#rolesData3");
-    let value = $("#rolesSelect3 option:selected").val().toLowerCase();
-    input3.setAttribute("value",value);
-    //input3.value = $("#rolesSelect3 option:selected").val().toLowerCase();
-    console.log(input3);
-    console.log(input3.value);
-
-
-};
-
-for(let i = 0; i < selects1.length; i++){
-    selects1[i].addEventListener('change', roles_event_listener1);
-}
-for(let i = 0; i < selects3.length; i++){
-    selects3[i].addEventListener('change', roles_event_listener3);
-}
 for(let i = 0; i < delete_buttons.length; i++){
-    delete_buttons[i].addEventListener('click', del_event_listner);
+    delete_buttons[i].addEventListener('click', del_event_listener);
+}
+for(let i = 0; i < edit_buttons.length; i++){
+    edit_buttons[i].addEventListener('click', ed_event_listener);
 }
 
 
