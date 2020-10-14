@@ -21,6 +21,6 @@ nav{
 .custom-down{
     max-width: 90%;
 }
-#rolesData{
+#rolesData1, #rolesData3{
     display: none;
 }
