@@ -98,7 +98,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean addUserFromTable(Users user, MultipartFile file) {
-        if(file!=null){
+        if(file!=null && !file.getName().isEmpty() && !file.isEmpty()){
             if(!ImageValidator.validate(file,null)){
                 return false;
             }
@@ -107,7 +107,7 @@ public class UserService implements UserDetailsService {
         if(UsersValidator.validate(user,null)){
             return false;
         }
-        if(usersRepo.findByUsername(user.getUsername())==null){
+        if(usersRepo.findByUsername(user.getUsername())!=null){
             return false;
         }
         usersRepo.save(user);

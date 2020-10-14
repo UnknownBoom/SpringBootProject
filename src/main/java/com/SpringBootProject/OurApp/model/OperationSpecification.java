@@ -19,7 +19,7 @@ public class OperationSpecification implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "OperationSpecification_gen")
     @SequenceGenerator(name = "OperationSpecification_gen",sequenceName = "OperationSpecification_seq" ,allocationSize = 25,initialValue = 25)
-    private Long operation_specification;
+    private Long operation_specification_id;
 
     @NaturalId
     @ManyToOne

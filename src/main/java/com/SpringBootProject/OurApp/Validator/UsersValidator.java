@@ -24,7 +24,8 @@ public class UsersValidator {
             isValid = false;
         }
         if(!errors.keySet().isEmpty()){
-            model.addAttribute("errors", errors);
+            if(model!=null)
+                model.addAttribute("errors", errors);
             isValid = false;
         }
         return isValid;

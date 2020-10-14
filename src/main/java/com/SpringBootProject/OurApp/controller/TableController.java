@@ -62,6 +62,18 @@ public class TableController {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private Specification_unitRepo specification_unitRepo;
+
+    @Autowired
+    private Specification_materialsRepo specification_materialsRepo;
+
+    @Autowired
+    private OperationSpecificationRepo operationSpecificationRepo;
+
+    @Autowired
+    private EquipmentsRepo equipmentsRepo;
+
 
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @GetMapping("/orders")
@@ -82,6 +94,80 @@ public class TableController {
         return "orders";
     }
 
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @GetMapping("/spec_unit")
+    public String getSpec_Unit(Model model, @RequestParam(required = false) String id){
+        Iterable<Specification_materials> Specification_materials;
+        if(id!=null && !id.isEmpty()){
+            try{
+                Specification_materials = Arrays.asList(specification_materialsRepo.findById(Long.parseLong(id)).get());
+            }catch (Exception e){
+                Specification_materials = specification_materialsRepo.findAll();
+            }
+
+        }else{
+            Specification_materials = specification_materialsRepo.findAll();
+
+        }
+        model.addAttribute("specification_materials",Specification_materials);
+        return "spec_material";
+    }
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @GetMapping("/operation_specification")
+    public String getOP_spec(Model model, @RequestParam(required = false) String id){
+        Iterable<OperationSpecification> operation_specification;
+        if(id!=null && !id.isEmpty()){
+            try{
+                operation_specification = Arrays.asList(operationSpecificationRepo.findById(Long.parseLong(id)).get());
+            }catch (Exception e){
+                operation_specification = operationSpecificationRepo.findAll();
+            }
+
+        }else{
+            operation_specification = operationSpecificationRepo.findAll();
+
+        }
+        model.addAttribute("operation_specifications",operation_specification);
+        return "spec_operat";
+    }
+
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @GetMapping("/equipments")
+    public String getEquip(Model model, @RequestParam(required = false) String id){
+        Iterable<Equipments> equipments;
+        if(id!=null && !id.isEmpty()){
+            try{
+                equipments = equipmentsRepo.findByMarkContaining(id);
+            }catch (Exception e){
+                equipments = equipmentsRepo.findAll();
+            }
+
+        }else{
+            equipments = equipmentsRepo.findAll();
+
+        }
+        model.addAttribute("equipments",equipments);
+        return "Equipments";
+    }
+
+    @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
+    @GetMapping("/specification_materials")
+    public String getSpec_mat(Model model, @RequestParam(required = false) String id){
+        Iterable<Specification_unit> Specification_units;
+        if(id!=null && !id.isEmpty()){
+            try{
+                Specification_units = Arrays.asList(specification_unitRepo.findById(Long.parseLong(id)).get());
+            }catch (Exception e){
+                Specification_units = specification_unitRepo.findAll();
+            }
+
+        }else{
+            Specification_units = specification_unitRepo.findAll();
+
+        }
+        model.addAttribute("specification_units",Specification_units);
+        return "specif_unit";
+    }
 
     @GetMapping("/materials")
     public String getMaterialsTable(Model model,@RequestParam(required = false) String id){
@@ -226,13 +312,15 @@ public class TableController {
     }
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @PostMapping("/users/add")
-    public String saveNewUser(Users user,@RequestParam(required = false) MultipartFile file, Model model){
-        userService.addUserFromTable(user,file);
+    public String saveNewUser(Users user,@RequestParam(required = false,name = "photo") MultipartFile file,@RequestParam(name = "role") String role,Model model){
+        user.setRoles(Collections.singleton(Roles.valueOf(role)));
+        boolean b = userService.addUserFromTable(user, file);
+        if(!b) System.out.println("Not good");
         return "redirect:/tables/users";
     }
     @PreAuthorize("hasAnyAuthority('Manager','Master','Director','Deputy_director')")
     @PostMapping("users/edit")
-    public String editUser(Users user,@RequestParam(required = false) MultipartFile file, Model model){
+    public String editUser(Users user,@RequestParam(required = false,name = "photo") MultipartFile file, Model model){
         userService.editUserFromTable(user,file);
         return "redirect:/tables/users";
     }

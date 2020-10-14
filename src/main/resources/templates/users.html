@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="placeElem1" enctype="multipart/form-data">
+                <form id="placeElem1" th:action="@{/tables/users/edit}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="first_name1" class="col-form-label">first_name</label>
                         <input id="first_name1" type="text" class="form-control" name="first_name">
@@ -36,16 +36,13 @@
                         <input id="password1" type="text" class="form-control" name="password">
                     </div>
                     <div class="form-group">
-                        <select id="rolesSelect1">
-                            <option value="master" class="roles">Master</option>
-                            <option value="customer" class="roles">Customer</option>
-                            <option value="director" class="roles">Director</option>
-                            <option value="deputy_director" class="roles">Deputy Director</option>
-                            <option value="manager" class="roles">Manager</option>
+                        <select name="role">
+                            <option>Customer</option>
+                            <option>Master</option>
+                            <option>Director</option>
+                            <option>Deputy_director</option>
+                            <option>Manager</option>
                         </select>
-                        <div id="roles">
-                            <input id="rolesData1" name="roles" type="text" class="textfield hidden-el"/>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label for="photo1" class="col-form-label">photo</label>
@@ -59,8 +56,8 @@
             </div>
 
         </div>
-        </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,7 +92,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="placeElem3" enctype="multipart/form-data">
+                <form id="placeElem3" method="post" th:action="@{/tables/users/add}" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="first_name3" class="col-form-label">first_name</label>
                         <input id="first_name3" type="text" class="form-control" name="first_name">
@@ -117,17 +114,13 @@
                         <input id="password3" type="text" class="form-control" name="password">
                     </div>
                     <div class="form-group">
-                        <select id="rolesSelect3">
-                            <option value="master" class="roles">Master</option>
-                            <option value="customer" class="roles">Customer</option>
-                            <option value="director" class="roles">Director</option>
-                            <option value="deputy_director" class="roles">Deputy Director</option>
-                            <option value="manager" class="roles">Manager</option>
+                        <select name="role">
+                            <option>Customer</option>
+                            <option>Master</option>
+                            <option>Director</option>
+                            <option>Deputy_director</option>
+                            <option>Manager</option>
                         </select>
-                        <div id="roles3">
-                            <input id="rolesData3" name="roles" type="text" class="textfield hidden-el"/>
-                        </div>
-
                     </div>
                     <div class="form-group">
                         <label for="photo3" class="col-form-label">photo</label>
@@ -152,7 +145,7 @@
 
 <div class="bg-dark custom-layout mt-2 mx-auto">
     <div><h2 class="mx-auto custom-font">Users</h2></div>
-     <div>
+    <div>
 
         <div class="scroll-table" id="main-table">
             <table class="table table-dark">
@@ -196,8 +189,8 @@
                 <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal3" data-whatever="@mdo">Add</button>
             </form>
         </div>
-        </div>
     </div>
+</div>
 </div>
 
 
