@@ -16,16 +16,33 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="placeElem1">
+				<form id="placeElem1" enctype="multipart/form-data">
+					<div class="form-group">
+						<span class="tinput"></span>
+					</div>
 
+					<div class="form-group">
+						<label for="amount1" class="col-form-label">amount</label>
+						<input id="amount1" type="text" class="form-control tinput" name="amount">
+					</div>
+					<div class="form-group">
+						<label for="furniture1" class="col-form-label">furniture</label>
+						<input id="furniture1" type="text" class="form-control tinput" name="furniture">
+					</div>
+					<div class="form-group">
+						<label for="product_type_id1" class="col-form-label">product_type_id</label>
+						<input id="product_type_id1" type="text" class="form-control tinput" name="product_type_id">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</div>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary">Save</button>
-			</div>
+
 		</div>
 	</div>
+</div>
 </div>
 
 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,37 +56,52 @@
 			</div>
 			<div class="modal-body">
 				<form id="placeElem2">
-
+					<div class="modal-footer" id="placeBefore">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary">Delete</button>
+						<input type="text" name="delete_id" value="" class="hidden-el">
+					</div>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary">Delete</button>
-			</div>
+
 		</div>
 	</div>
 </div>
-
 <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document">S
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modalLabel3">Delete this row?</h5>
+				<h5 class="modal-title" id="modalLabel3">Add new row</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="placeElem3">
-
+				<form id="placeElem3" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="amount3" class="col-form-label">amount</label>
+						<input id="amount3" type="text" class="form-control tinput" name="amount">
+					</div>
+					<div class="form-group">
+						<label for="material_id3" class="col-form-label">material_id</label>
+						<input id="material_id3" type="text" class="form-control tinput" name="material_id">
+					</div>
+					<div class="form-group">
+						<label for="product_type_id3" class="col-form-label">product_type_id</label>
+						<input id="product_type_id3" type="text" class="form-control tinput" name="product_type_id">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary">Add</button>
+					</div>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary">Delete</button>
-			</div>
+
+
 		</div>
+
 	</div>
+</div>
 </div>
 
 <th:block th:replace="fragments/main_fragment :: navbar">
@@ -98,8 +130,8 @@
 						<td th:text="${spec_furn.furniture} ?:''"></td>
 						<td th:text="${spec_furn.amount} ?:''"></td>
 						<td><div class="btn-group" role="group" aria-label="Basic example">
-							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal1" data-whatever="@mdo">Edit</button>
-							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal2" data-whatever="@mdo">Delete</button>
+							<button type="button" class="btn btn-secondary btn-ed" data-toggle="modal" data-target="#modal1" data-whatever="@mdo">Edit</button>
+							<button type="button" class="btn btn-secondary btn-del" data-toggle="modal" data-target="#modal2" data-whatever="@mdo">Delete</button>
 						</div></td>
 					</tr>
 				</th:block>
@@ -111,7 +143,8 @@
 	</div>
 </div>
 
-<footer th:replace="fragments/main_fragment::footer">
-</footer>
+<script type="text/javascript" th:src="@{/js/users_script.js}"></script>
+<!--<footer th:replace="fragments/main_fragment::footer">
+</footer>-->
 </body>
 </html>
