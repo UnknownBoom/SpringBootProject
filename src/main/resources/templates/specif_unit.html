@@ -4,7 +4,7 @@
 </head>
 <body  class="bg-body">
 
-<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -45,7 +45,7 @@
 </div>
 </div>
 
-<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -67,7 +67,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">S
         <div class="modal-content">
             <div class="modal-header">
@@ -129,8 +129,8 @@
                             <td th:text="${spec_unit.product_unit.product_type_name} ?:''"></td>
                             <td th:text="${spec_unit.amount} ?:''"></td>
                             <td ><div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary btn-ed" data-toggle="modal" data-target="#modal1" data-whatever="@mdo">Edit</button>
-                                <button type="button" class="btn btn-secondary btn-del" data-toggle="modal" data-target="#modal2" data-whatever="@mdo">Delete</button>
+                                <button type="button" class="btn btn-secondary btn-ed" data-toggle="modal" data-target="#modal_edit" data-whatever="@mdo">Edit</button>
+                                <button type="button" class="btn btn-secondary btn-del" data-toggle="modal" data-target="#modal_delete" data-whatever="@mdo">Delete</button>
                             </div>
                             </td>
                         </tr>
@@ -140,7 +140,7 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal3" data-whatever="@mdo">Add new row</button>
+        <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#modal_add" data-whatever="@mdo">Add new row</button>
     </div>
 </div>
 
